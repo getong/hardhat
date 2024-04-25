@@ -159,3 +159,32 @@ async function loadHookCategory(url: URL): Promise<unknown> {
 
   return obj;
 }
+
+export async function runHooksChain<
+  HookT extends (...args: any[]) => Promise<any>,
+>(
+  hooks: HookT[],
+  initialParams: ParametersExceptLast<HookT>,
+  defaultHandler: LastParameter<HookT>,
+): Promise<Awaited<ReturnType<HookT>>> {
+  if (typeof defaultHandler !== "function") {
+    throw new Error("Default handler must be a function");
+  }
+
+  let index = hooks.length - 1;
+  const next = async (...params: typeof initialParams) => {
+    if (index >= 0) {
+      return hooks[index--](...params, next);
+    }
+
+    return defaultHandler(...params);
+  };
+
+  return next(...initialParams);
+}
+
+type ParametersExceptLast<T extends (...args: any[]) => any> =
+  Parameters<T> extends [...infer Params, any] ? Params : never;
+
+type LastParameter<T extends (...args: any[]) => Promise<any>> =
+  Parameters<T> extends [...infer _, infer Last] ? Last : never;

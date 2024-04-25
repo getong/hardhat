@@ -26,18 +26,16 @@ export interface HardhatPluginHooks {
   userInterruption?: UserInterruptionsHooks | URL;
 }
 
-export type ExtensionHook<ValueT> = (
-  value: ValueT,
-  next: (v: ValueT) => Promise<ValueT>,
-) => Promise<ValueT>;
-
-export type ExtendUserConfigHook = ExtensionHook<HardhatUserConfig>;
-
 export interface HardhatPluginConfigHooks {
-  extendUserConfig?: ExtendUserConfigHook;
+  extendUserConfig?: (
+    config: HardhatUserConfig,
+    next: (c: HardhatUserConfig) => Promise<HardhatUserConfig>,
+  ) => Promise<HardhatUserConfig>;
+
   validateUserConfig?: (
     config: HardhatUserConfig,
   ) => Promise<HardhatUserConfigValidationError[]>;
+
   resolveUserConfig?: (
     config: HardhatUserConfig,
     next: (userConfig: HardhatUserConfig) => Promise<HardhatConfig>,

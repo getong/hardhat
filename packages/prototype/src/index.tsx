@@ -36,7 +36,7 @@ async function main() {
   console.log("\n\n\n");
 
   // await ignition(hre);
-  await inkBased(hre);
+  await inkBasedExampleTask(hre);
 }
 
 // This is a prototype of ignition's main task.
@@ -44,13 +44,13 @@ async function main() {
 // In this prototype we use user interactions to ask for the
 // user attention and request input, right in the middle of
 // ignition's executioon, without breaking its output.
-async function ignition(hre: HardhatRuntimeEnvironment) {
+async function _ignitionMockTask(hre: HardhatRuntimeEnvironment) {
   // This code simulates asking the user for a private key in the
   // middle of the execution. It could be from a provider, for example.
   setTimeout(async () => {
     // The private key is lazily fetched, so it uses a user interruption
     // to ask for it.
-    const pk = await hre.config.privateKey.get(hre.interruptions);
+    const pk = await hre.configVariables.resolve(hre.config.privateKey);
     console.log("Got private key:", pk);
   }, 500);
 
@@ -59,12 +59,13 @@ async function ignition(hre: HardhatRuntimeEnvironment) {
   const ignitionInterruptionHooks: UserInterruptionsHooks = {
     async requestSecretInput(
       inputDescription: string,
-      next: (m: string) => Promise<string>,
+      requester: string,
+      next: (m: string, r: string) => Promise<string>,
     ): Promise<string> {
       console.log(
         "Ignition request secret input (maybe displayed differently)",
       );
-      return readlineRequestSecretInput(inputDescription, next);
+      return readlineRequestSecretInput(inputDescription, requester, next);
     },
   };
 
@@ -90,7 +91,8 @@ async function ignition(hre: HardhatRuntimeEnvironment) {
 
 async function readlineRequestSecretInput(
   inputDescription: string,
-  _next: (m: string) => Promise<string>,
+  _requester: string,
+  _next: (m: string, r: string) => Promise<string>,
 ): Promise<string> {
   const rl = createInterface({
     input: process.stdin,
@@ -127,16 +129,21 @@ async function readlineRequestSecretInput(
   });
 }
 
-async function inkBased(hre: HardhatRuntimeEnvironment) {
+async function inkBasedExampleTask(hre: HardhatRuntimeEnvironment) {
   // This code simulates asking the user for a private key in the
   // middle of the execution. It could be from a provider, for example.
   setTimeout(async () => {
     // The private key is lazily fetched, so it uses a user interruption
     // to ask for it.
-    const pk = await hre.config.privateKey.get(hre.interruptions);
+    const pk = await hre.configVariables.resolve(hre.config.privateKey);
     await hre.interruptions.displayMessage(
       `Got private key: ${pk}`,
       "Configuration variables",
+    );
+
+    await hre.interruptions.displayMessage(
+      `Please sign in your ledger`,
+      "@nomicfoundation/hardhat-ledger",
     );
 
     await Promise.all([
@@ -144,11 +151,12 @@ async function inkBased(hre: HardhatRuntimeEnvironment) {
         `Please sign in your ledger`,
         "@nomicfoundation/hardhat-ledger",
       ),
-      new Promise((resolve) => {
-        // sign here...
+      new Promise<void>((resolve) => {
+        // sign here... ledger.sign()
+        resolve();
       }),
     ]);
-  }, 500);
+  }, 100);
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
   function App() {
@@ -176,7 +184,7 @@ async function inkBased(hre: HardhatRuntimeEnvironment) {
       undefined | { message: string; requester: string }
     >(undefined);
 
-    const [messageCleared, setMessageCleared] = useState<
+    const [messageResolve, setMessageResolve] = useState<
       (() => void) | undefined
     >(undefined);
 
@@ -184,9 +192,9 @@ async function inkBased(hre: HardhatRuntimeEnvironment) {
       useInput((_input, key) => {
         if (key.return) {
           setMessage(undefined);
-          const mc = messageCleared;
+          const mc = messageResolve;
           if (mc !== undefined) {
-            setMessageCleared(undefined);
+            setMessageResolve(undefined);
             mc();
           }
         }
@@ -216,7 +224,7 @@ async function inkBased(hre: HardhatRuntimeEnvironment) {
         async displayMessage(msg: string, requester: string) {
           setMessage({ message: msg, requester });
           return new Promise((resolve) => {
-            setMessageCleared(() => resolve);
+            setMessageResolve(() => resolve);
           });
         },
       };

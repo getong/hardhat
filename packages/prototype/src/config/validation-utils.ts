@@ -2,25 +2,14 @@ import { ZodType, ZodTypeDef, ZodIssue, z } from "zod";
 import { HardhatUserConfigValidationError } from "../types/plugins.js";
 import { HardhatUserConfig } from "../types/config.js";
 
-export const LazyConfigValueType = z.object({
-  get: z.function(),
+export const ConfigurationVariableType = z.object({
+  _type: z.literal("ConfigurationVariable"),
+  name: z.string(),
 });
 
-export const HardhatUserConfigNumberType = z.union([
-  z.number(),
-  LazyConfigValueType,
-]);
-export const HardhatUserConfigStringType = z.union([
+export const SensitiveStringType = z.union([
   z.string(),
-  LazyConfigValueType,
-]);
-export const HardhatUserConfigBooleanType = z.union([
-  z.boolean(),
-  LazyConfigValueType,
-]);
-export const HardhatUserConfigBigintType = z.union([
-  z.bigint(),
-  LazyConfigValueType,
+  ConfigurationVariableType,
 ]);
 
 export async function validateUserConfigZodType<

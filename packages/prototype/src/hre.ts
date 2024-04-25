@@ -1,6 +1,6 @@
 import type { HardhatRuntimeEnvionment as IHardhatRuntimeEnvionment } from "./types/hre.js";
 import { HardhatUserConfig, HardhatConfig } from "./types/config.js";
-import { Hooks } from "./types/hooks.js";
+import { Hook, Hooks } from "./types/hooks.js";
 import { HooksUtils } from "./hook-utils.js";
 import builtinFunctionality from "./builtin-functionality.js";
 import { reverseTopologicalSort } from "./plugins/sort.js";
@@ -10,6 +10,10 @@ import {
 } from "./types/plugins.js";
 import { UserInterruptions } from "./types/user-interruptions.js";
 import { UserInteractionsUtils } from "./user-interruptions.js";
+import {
+  ConfigurationVariableResolver,
+  ConfigurationVariableResolverImplementation,
+} from "./configuration-variables.js";
 
 export class HardhatRuntimeEnvironment implements IHardhatRuntimeEnvionment {
   public static async create(
@@ -26,6 +30,10 @@ export class HardhatRuntimeEnvironment implements IHardhatRuntimeEnvionment {
 
     const hooks = new HooksUtils(sortedPlugins);
     const interruptions = new UserInteractionsUtils(hooks);
+    const configVariables = new ConfigurationVariableResolverImplementation(
+      interruptions,
+      hooks,
+    );
 
     // extend user config:
     const userConfig = await runUserConfigExtensions(hooks, clonedConfig);
@@ -60,6 +68,7 @@ export class HardhatRuntimeEnvironment implements IHardhatRuntimeEnvionment {
       resolvedConfig,
       hooks,
       interruptions,
+      configVariables,
     );
   }
 
@@ -68,6 +77,7 @@ export class HardhatRuntimeEnvironment implements IHardhatRuntimeEnvionment {
     public readonly config: HardhatConfig,
     public readonly hooks: Hooks,
     public readonly interruptions: UserInterruptions,
+    public readonly configVariables: ConfigurationVariableResolver,
   ) {}
 }
 
@@ -133,19 +143,12 @@ async function resolveUserConfig(
     plugins: sortedPlugins,
   } as HardhatConfig;
 
-  const resolveUserConfigHooks = await hooks.getHooks(
+  return hooks.runHooksChain(
     "config",
     "resolveUserConfig",
+    [config],
+    async (_) => {
+      return initialResolvedConfig;
+    },
   );
-
-  let index = resolveUserConfigHooks.length - 1;
-  const next = async (userConfig: HardhatUserConfig) => {
-    if (index >= 0) {
-      return resolveUserConfigHooks[index--](userConfig, next);
-    }
-
-    return initialResolvedConfig;
-  };
-
-  return next(config);
 }
