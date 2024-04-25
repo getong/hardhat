@@ -3,8 +3,9 @@ import { createInterface } from "readline";
 import React, { useEffect, useState } from "react";
 import { Box, Text, render, useInput } from "ink";
 import { PasswordInput } from "@inkjs/ui";
-import { HardhatRuntimeEnvironment } from "./hre.js";
 import { UserInterruptionsHooks } from "./types/plugins.js";
+import { HardhatRuntimeEnvironment } from "./api.js";
+import { createHardhatRuntimeEnvironment } from "./index.js";
 
 await main();
 
@@ -28,7 +29,7 @@ async function main() {
     return;
   }
 
-  const hre = await HardhatRuntimeEnvironment.create(config);
+  const hre = await createHardhatRuntimeEnvironment(config);
 
   const now = process.hrtime.bigint();
   console.log("Time to initialize the HRE (ms):", (now - then) / 1000000n);
@@ -67,6 +68,18 @@ async function _ignitionMockTask(hre: HardhatRuntimeEnvironment) {
       );
       return readlineRequestSecretInput(inputDescription, requester, next);
     },
+    async requestInput(
+      inputDescription: string,
+      requester: string,
+      next: (m: string, r: string) => Promise<string>,
+    ): Promise<string> {
+      console.log("Ignition request input (maybe displayed differently)");
+      return readlineRequestSecretInput(inputDescription, requester, next);
+    },
+    async displayMessage(msg: string, requester: string) {
+      console.log("Ignition display message (maybe displayed differently)");
+      console.log(`Message from ${requester}: ${msg}`);
+    },
   };
 
   hre.hooks.registerHooks("userInterruption", ignitionInterruptionHooks);
@@ -88,6 +101,8 @@ async function _ignitionMockTask(hre: HardhatRuntimeEnvironment) {
     hre.hooks.unregisterHooks("userInterruption", ignitionInterruptionHooks);
   }
 }
+
+void _ignitionMockTask;
 
 async function readlineRequestSecretInput(
   inputDescription: string,
@@ -139,11 +154,6 @@ async function inkBasedExampleTask(hre: HardhatRuntimeEnvironment) {
     await hre.interruptions.displayMessage(
       `Got private key: ${pk}`,
       "Configuration variables",
-    );
-
-    await hre.interruptions.displayMessage(
-      `Please sign in your ledger`,
-      "@nomicfoundation/hardhat-ledger",
     );
 
     await Promise.all([
@@ -210,6 +220,18 @@ async function inkBasedExampleTask(hre: HardhatRuntimeEnvironment) {
     useEffect(() => {
       const inkInterruptions: UserInterruptionsHooks = {
         async requestSecretInput(
+          inputDescription: string,
+          requester: string,
+        ): Promise<string> {
+          setRequestedSecret({
+            requester,
+            description: inputDescription,
+          });
+          return new Promise((resolve) => {
+            setReturnSecret(() => resolve);
+          });
+        },
+        async requestInput(
           inputDescription: string,
           requester: string,
         ): Promise<string> {

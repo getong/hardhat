@@ -1,7 +1,5 @@
+import type { HardhatUserConfig } from "./types/config.js";
 import hardhatFoo from "./example-plugins/hardhat-foo/index.js";
-import { HardhatUserConfig } from "./types/config.js";
-
-///
 
 export default {
   plugins: [hardhatFoo],

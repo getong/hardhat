@@ -1,24 +1,24 @@
-import type { HardhatRuntimeEnvionment as IHardhatRuntimeEnvionment } from "./types/hre.js";
-import { HardhatUserConfig, HardhatConfig } from "./types/config.js";
-import { Hook, Hooks } from "./types/hooks.js";
-import { HooksUtils } from "./hook-utils.js";
-import builtinFunctionality from "./builtin-functionality.js";
-import { reverseTopologicalSort } from "./plugins/sort.js";
+import type { HardhatRuntimeEnvironment } from "../types/hre.js";
+import { HardhatUserConfig, HardhatConfig } from "../types/config.js";
+import { HookManager } from "../types/hooks.js";
 import {
   HardhatPlugin,
   HardhatUserConfigValidationError,
-} from "./types/plugins.js";
-import { UserInterruptions } from "./types/user-interruptions.js";
-import { UserInteractionsUtils } from "./user-interruptions.js";
-import {
-  ConfigurationVariableResolver,
-  ConfigurationVariableResolverImplementation,
-} from "./configuration-variables.js";
+} from "../types/plugins.js";
+import { UserInterruptionManager } from "../types/user-interruptions.js";
+import { ConfigurationVariableResolver } from "../types/configuration-variables.js";
+import { HookManagerImplementation } from "./hook-manager.js";
+import builtinFunctionality from "./builtin-functionality.js";
+import { reverseTopologicalSort } from "./plugins/sort.js";
+import { UserInterruptionManagerImplementation } from "./user-interruptions.js";
+import { ConfigurationVariableResolverImplementation } from "./config/configuration-variables.js";
 
-export class HardhatRuntimeEnvironment implements IHardhatRuntimeEnvionment {
+export class HardhatRuntimeEnvironmentImplementation
+  implements HardhatRuntimeEnvironment
+{
   public static async create(
     config: HardhatUserConfig,
-  ): Promise<HardhatRuntimeEnvironment> {
+  ): Promise<HardhatRuntimeEnvironmentImplementation> {
     // Clone with lodash or https://github.com/davidmarkclements/rfdc
     const clonedConfig = config;
 
@@ -28,8 +28,8 @@ export class HardhatRuntimeEnvironment implements IHardhatRuntimeEnvionment {
       ...(clonedConfig.plugins ?? []),
     ]);
 
-    const hooks = new HooksUtils(sortedPlugins);
-    const interruptions = new UserInteractionsUtils(hooks);
+    const hooks = new HookManagerImplementation(sortedPlugins);
+    const interruptions = new UserInterruptionManagerImplementation(hooks);
     const configVariables = new ConfigurationVariableResolverImplementation(
       interruptions,
       hooks,
@@ -63,7 +63,7 @@ export class HardhatRuntimeEnvironment implements IHardhatRuntimeEnvionment {
       config,
     );
 
-    return new HardhatRuntimeEnvironment(
+    return new HardhatRuntimeEnvironmentImplementation(
       userConfig,
       resolvedConfig,
       hooks,
@@ -75,67 +75,41 @@ export class HardhatRuntimeEnvironment implements IHardhatRuntimeEnvionment {
   private constructor(
     public readonly userConfig: HardhatUserConfig,
     public readonly config: HardhatConfig,
-    public readonly hooks: Hooks,
-    public readonly interruptions: UserInterruptions,
+    public readonly hooks: HookManager,
+    public readonly interruptions: UserInterruptionManager,
     public readonly configVariables: ConfigurationVariableResolver,
   ) {}
 }
 
-export class T {
-  readonly #f: number;
-
-  private constructor(f: number) {
-    this.#f = f;
-    this.#foo();
-    this.#bar();
-  }
-
-  #foo() {
-    console.log(this.#f);
-  }
-
-  #bar() {}
-}
-
 async function runUserConfigExtensions(
-  hooks: Hooks,
+  hooks: HookManager,
   config: HardhatUserConfig,
 ): Promise<HardhatUserConfig> {
-  const extendUserConfigHooks = await hooks.getHooks(
+  return hooks.runHooksChain(
     "config",
     "extendUserConfig",
+    [config],
+    async (c) => {
+      return c;
+    },
   );
-
-  let index = extendUserConfigHooks.length - 1;
-  const next = async (userConfig: HardhatUserConfig) => {
-    if (index >= 0) {
-      return extendUserConfigHooks[index--](userConfig, next);
-    }
-
-    return userConfig;
-  };
-
-  return next(config);
 }
 
 async function validateUserConfig(
-  hooks: Hooks,
+  hooks: HookManager,
   config: HardhatUserConfig,
 ): Promise<HardhatUserConfigValidationError[]> {
-  const validateUserConfigHooks = await hooks.getHooks(
+  const results = await hooks.runHooksInParallel(
     "config",
     "validateUserConfig",
+    [config],
   );
 
-  const hookResults = await Promise.all(
-    validateUserConfigHooks.map(async (h) => h(config)),
-  );
-
-  return hookResults.flat(1);
+  return results.flat(1);
 }
 
 async function resolveUserConfig(
-  hooks: Hooks,
+  hooks: HookManager,
   sortedPlugins: HardhatPlugin[],
   config: HardhatUserConfig,
 ): Promise<HardhatConfig> {

@@ -1,0 +1,2689 @@
+{
+  "metadata": {
+    "toolPackage": "@microsoft/api-extractor",
+    "toolVersion": "7.43.1",
+    "schemaVersion": 1011,
+    "oldestForwardsCompatibleVersion": 1001,
+    "tsdocConfig": {
+      "$schema": "https://developer.microsoft.com/json-schemas/tsdoc/v0/tsdoc.schema.json",
+      "noStandardTags": true,
+      "tagDefinitions": [
+        {
+          "tagName": "@alpha",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@beta",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@defaultValue",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@decorator",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@deprecated",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@eventProperty",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@example",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@experimental",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@inheritDoc",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@internal",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@label",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@link",
+          "syntaxKind": "inline",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@override",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@packageDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@param",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@privateRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@public",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@readonly",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@remarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@returns",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@sealed",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@see",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@throws",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@typeParam",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@virtual",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@betaDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@internalRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@preapproved",
+          "syntaxKind": "modifier"
+        }
+      ],
+      "supportForTags": {
+        "@alpha": true,
+        "@beta": true,
+        "@defaultValue": true,
+        "@decorator": true,
+        "@deprecated": true,
+        "@eventProperty": true,
+        "@example": true,
+        "@experimental": true,
+        "@inheritDoc": true,
+        "@internal": true,
+        "@label": true,
+        "@link": true,
+        "@override": true,
+        "@packageDocumentation": true,
+        "@param": true,
+        "@privateRemarks": true,
+        "@public": true,
+        "@readonly": true,
+        "@remarks": true,
+        "@returns": true,
+        "@sealed": true,
+        "@see": true,
+        "@throws": true,
+        "@typeParam": true,
+        "@virtual": true,
+        "@betaDocumentation": true,
+        "@internalRemarks": true,
+        "@preapproved": true
+      },
+      "reportUnsupportedHtmlElements": false
+    }
+  },
+  "kind": "Package",
+  "canonicalReference": "@nomicfoundation/prototype!",
+  "docComment": "",
+  "name": "@nomicfoundation/prototype",
+  "preserveMemberOrder": false,
+  "members": [
+    {
+      "kind": "EntryPoint",
+      "canonicalReference": "@nomicfoundation/prototype!",
+      "name": "",
+      "preserveMemberOrder": false,
+      "members": [
+        {
+          "kind": "Interface",
+          "canonicalReference": "@nomicfoundation/prototype!ConfigurationVariable:interface",
+          "docComment": "/**\n * A configuration variable to be resolved at runtime.\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface ConfigurationVariable "
+            }
+          ],
+          "fileUrlPath": "src/types/config.ts",
+          "releaseTag": "Public",
+          "name": "ConfigurationVariable",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!ConfigurationVariable#_type:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "_type: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "\"ConfigurationVariable\""
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "_type",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!ConfigurationVariable#name:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "name: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "name",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@nomicfoundation/prototype!ConfigurationVariableResolver:interface",
+          "docComment": "/**\n * An interface to resolve configuration variables into their actual values.\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface ConfigurationVariableResolver "
+            }
+          ],
+          "fileUrlPath": "src/types/configuration-variables.ts",
+          "releaseTag": "Public",
+          "name": "ConfigurationVariableResolver",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "MethodSignature",
+              "canonicalReference": "@nomicfoundation/prototype!ConfigurationVariableResolver#resolve:member(1)",
+              "docComment": "/**\n * Resolves a configuration variable into a string.\n *\n * If the variable is a string, it will be resolved to that same string.\n *\n * If the variable is a ConfigurationVariable, it will be resolved to the value it represents.\n *\n * @param variable - The configuration variable or string to resolve.\n *\n * @returns The resolved value.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "resolve(variable: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "ConfigurationVariable",
+                  "canonicalReference": "@nomicfoundation/prototype!ConfigurationVariable:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": " | string"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<string>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "returnTypeTokenRange": {
+                "startIndex": 4,
+                "endIndex": 6
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "variable",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 3
+                  },
+                  "isOptional": false
+                }
+              ],
+              "name": "resolve"
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "@nomicfoundation/prototype!createHardhatRuntimeEnvironment:function(1)",
+          "docComment": "/**\n * Creates an instances of the Hardhat Runtime Environment.\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function createHardhatRuntimeEnvironment(config: "
+            },
+            {
+              "kind": "Reference",
+              "text": "HardhatUserConfig",
+              "canonicalReference": "@nomicfoundation/prototype!~HardhatUserConfig:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Reference",
+              "text": "Promise",
+              "canonicalReference": "!Promise:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "HardhatRuntimeEnvironment",
+              "canonicalReference": "@nomicfoundation/prototype!HardhatRuntimeEnvironment:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ">"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "src/index.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 7
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "config",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            }
+          ],
+          "name": "createHardhatRuntimeEnvironment"
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@nomicfoundation/prototype!HardhatConfig:interface",
+          "docComment": "/**\n * The resolved Hardhat configuration.\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface HardhatConfig "
+            }
+          ],
+          "fileUrlPath": "src/types/config.ts",
+          "releaseTag": "Public",
+          "name": "HardhatConfig",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!HardhatConfig#privateKey:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "privateKey: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "SensitiveString",
+                  "canonicalReference": "@nomicfoundation/prototype!SensitiveString:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "privateKey",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!HardhatConfig#solidity:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "solidity: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "SolidityConfig",
+                  "canonicalReference": "@nomicfoundation/prototype!SolidityConfig:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "solidity",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@nomicfoundation/prototype!HardhatPlugin:interface",
+          "docComment": "/**\n * A Hardhat plugin.\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface HardhatPlugin "
+            }
+          ],
+          "fileUrlPath": "src/types/plugins.ts",
+          "releaseTag": "Public",
+          "name": "HardhatPlugin",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!HardhatPlugin#dependencies:member",
+              "docComment": "/**\n * An arary of plugins that this plugins depends on.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "dependencies?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatPlugin",
+                  "canonicalReference": "@nomicfoundation/prototype!HardhatPlugin:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[]"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "dependencies",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!HardhatPlugin#hooks:member",
+              "docComment": "/**\n * An object with the different hooks that this plugin defines.\n *\n * Each entry in this object is a a category of hooks, for example `\"config\"` or `\"userInterruption\"`.\n *\n * You can define each category as an object with keys that are the hook names, and values that are the hook implementations, but this way of defining hooks is only for development.\n *\n * In production, you must use a `string` with the path to a file that exports as `default` an object with the hook implementations.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "hooks?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "LazyLoadedOptionalHooks",
+                  "canonicalReference": "@nomicfoundation/prototype!LazyLoadedOptionalHooks:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "hooks",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!HardhatPlugin#id:member",
+              "docComment": "/**\n * A unique id of the plugin.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "id: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "id",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!HardhatPlugin#npmPackage:member",
+              "docComment": "/**\n * The npm package where the plugin is located, if any.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "npmPackage?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "npmPackage",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@nomicfoundation/prototype!HardhatPluginConfigHooks:interface",
+          "docComment": "/**\n * Config-related hooks.\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface HardhatPluginConfigHooks extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "HookCategory",
+              "canonicalReference": "@nomicfoundation/prototype!HookCategory:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            }
+          ],
+          "fileUrlPath": "src/types/plugins.ts",
+          "releaseTag": "Public",
+          "name": "HardhatPluginConfigHooks",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!HardhatPluginConfigHooks#extendUserConfig:member",
+              "docComment": "/**\n * Provide an implementation of this hook to extend the user's config, before any validation or resolution is done.\n *\n * @param config - The user's config.\n *\n * @param next - A function to call to the next hook.\n *\n * @returns The extended config.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "extendUserConfig: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(config: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatUserConfig",
+                  "canonicalReference": "@nomicfoundation/prototype!~HardhatUserConfig:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", next: (c: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatUserConfig",
+                  "canonicalReference": "@nomicfoundation/prototype!~HardhatUserConfig:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ") => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatUserConfig",
+                  "canonicalReference": "@nomicfoundation/prototype!~HardhatUserConfig:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">) => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatUserConfig",
+                  "canonicalReference": "@nomicfoundation/prototype!~HardhatUserConfig:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "extendUserConfig",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 14
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!HardhatPluginConfigHooks#resolveUserConfig:member",
+              "docComment": "/**\n * Provide an implementation of this hook to resolve parts of the user's config into the final HardhatConfig.\n *\n * To use this hook, plugins are encouraged to call `next(config)` first, and construct a resolved config based on its result. Note that While that result is typed as `HardhatConfig`, it may actually be incomplete, as other plugins may not have resolved their parts of the config yet.\n *\n * @param config - The user's config.\n *\n * @param next - A function to call to the next hook.\n *\n * @returns The resolved config.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "resolveUserConfig: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(config: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatUserConfig",
+                  "canonicalReference": "@nomicfoundation/prototype!~HardhatUserConfig:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", next: (userConfig: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatUserConfig",
+                  "canonicalReference": "@nomicfoundation/prototype!~HardhatUserConfig:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ") => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatConfig",
+                  "canonicalReference": "@nomicfoundation/prototype!~HardhatConfig:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">) => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatConfig",
+                  "canonicalReference": "@nomicfoundation/prototype!~HardhatConfig:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "resolveUserConfig",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 14
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!HardhatPluginConfigHooks#validateUserConfig:member",
+              "docComment": "/**\n * Provide an implementation of this hook to run validations on the user's config.\n *\n * @param config - The user's config.\n *\n * @returns An array of validation errors.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "validateUserConfig: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(config: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatUserConfig",
+                  "canonicalReference": "@nomicfoundation/prototype!~HardhatUserConfig:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ") => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatUserConfigValidationError",
+                  "canonicalReference": "@nomicfoundation/prototype!HardhatUserConfigValidationError:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[]>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "validateUserConfig",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 8
+              }
+            }
+          ],
+          "extendsTokenRanges": [
+            {
+              "startIndex": 1,
+              "endIndex": 2
+            }
+          ]
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@nomicfoundation/prototype!HardhatPluginHooks:interface",
+          "docComment": "/**\n * The different hooks that a plugin can define.\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface HardhatPluginHooks "
+            }
+          ],
+          "fileUrlPath": "src/types/plugins.ts",
+          "releaseTag": "Public",
+          "name": "HardhatPluginHooks",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!HardhatPluginHooks#config:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "config: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatPluginConfigHooks",
+                  "canonicalReference": "@nomicfoundation/prototype!HardhatPluginConfigHooks:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "config",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!HardhatPluginHooks#userInterruption:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "userInterruption: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "UserInterruptionsHooks",
+                  "canonicalReference": "@nomicfoundation/prototype!UserInterruptionsHooks:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "userInterruption",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@nomicfoundation/prototype!HardhatRuntimeEnvironment:interface",
+          "docComment": "/**\n * The Hardhat Runtime Environment (HRE) is an object that exposes all the functionality available through Hardhat.\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface HardhatRuntimeEnvironment "
+            }
+          ],
+          "fileUrlPath": "src/types/hre.ts",
+          "releaseTag": "Public",
+          "name": "HardhatRuntimeEnvironment",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!HardhatRuntimeEnvironment#config:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly config: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatConfig",
+                  "canonicalReference": "@nomicfoundation/prototype!~HardhatConfig:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": true,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "config",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!HardhatRuntimeEnvironment#configVariables:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly configVariables: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "ConfigurationVariableResolver",
+                  "canonicalReference": "@nomicfoundation/prototype!ConfigurationVariableResolver:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": true,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "configVariables",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!HardhatRuntimeEnvironment#hooks:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly hooks: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HookManager",
+                  "canonicalReference": "@nomicfoundation/prototype!HookManager:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": true,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "hooks",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!HardhatRuntimeEnvironment#interruptions:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly interruptions: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "UserInterruptionManager",
+                  "canonicalReference": "@nomicfoundation/prototype!UserInterruptionManager:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": true,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "interruptions",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!HardhatRuntimeEnvironment#userConfig:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly userConfig: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatUserConfig",
+                  "canonicalReference": "@nomicfoundation/prototype!~HardhatUserConfig:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": true,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "userConfig",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@nomicfoundation/prototype!HardhatUserConfig:interface",
+          "docComment": "/**\n * The user's Hardhat configuration, as exported in their config file.\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface HardhatUserConfig "
+            }
+          ],
+          "fileUrlPath": "src/types/config.ts",
+          "releaseTag": "Public",
+          "name": "HardhatUserConfig",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!HardhatUserConfig#privateKey:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "privateKey?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "SensitiveString",
+                  "canonicalReference": "@nomicfoundation/prototype!SensitiveString:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "privateKey",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!HardhatUserConfig#solidity:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "solidity?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string | "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "SolidityUserConfig",
+                  "canonicalReference": "@nomicfoundation/prototype!SolidityUserConfig:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "solidity",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@nomicfoundation/prototype!HardhatUserConfigValidationError:interface",
+          "docComment": "/**\n * A HardhatUser validation error.\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface HardhatUserConfigValidationError "
+            }
+          ],
+          "fileUrlPath": "src/types/plugins.ts",
+          "releaseTag": "Public",
+          "name": "HardhatUserConfigValidationError",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!HardhatUserConfigValidationError#message:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "message: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "message",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!HardhatUserConfigValidationError#path:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "path: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Array",
+                  "canonicalReference": "!Array:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<string | number>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "path",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@nomicfoundation/prototype!HookCategory:interface",
+          "docComment": "/**\n * The base interface for all hook categories.\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface HookCategory "
+            }
+          ],
+          "fileUrlPath": "src/types/plugins.ts",
+          "releaseTag": "Public",
+          "name": "HookCategory",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "IndexSignature",
+              "canonicalReference": "@nomicfoundation/prototype!HookCategory:index(1)",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "[hookName: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": "]: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(...any: any[]) => any"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "hookName",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  },
+                  "isOptional": false
+                }
+              ]
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@nomicfoundation/prototype!HookManager:interface",
+          "docComment": "/**\n * An interface with utilities to interact with hooks.\n *\n * This interface provides methods register/unregister hooks, fetching hooks in the correct order, and run them in the most common execution patterns.\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface HookManager "
+            }
+          ],
+          "fileUrlPath": "src/types/hooks.ts",
+          "releaseTag": "Public",
+          "name": "HookManager",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "MethodSignature",
+              "canonicalReference": "@nomicfoundation/prototype!HookManager#getHooks:member(1)",
+              "docComment": "/**\n * Returns an array of hooks in the right execution order. This means the plugin hooks first, in the resolved plugins' order, followed by the dynamically registerd hooks in registration order.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "getHooks<HookCategoryNameT extends "
+                },
+                {
+                  "kind": "Content",
+                  "text": "keyof "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatPluginHooks",
+                  "canonicalReference": "@nomicfoundation/prototype!HardhatPluginHooks:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", HookNameT extends "
+                },
+                {
+                  "kind": "Content",
+                  "text": "keyof "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatPluginHooks",
+                  "canonicalReference": "@nomicfoundation/prototype!HardhatPluginHooks:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[HookCategoryNameT]"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">(hookCategoryName: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "HookCategoryNameT"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", hookName: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "HookNameT"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Array",
+                  "canonicalReference": "!Array:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatPluginHooks",
+                  "canonicalReference": "@nomicfoundation/prototype!HardhatPluginHooks:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[HookCategoryNameT][HookNameT]>>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "returnTypeTokenRange": {
+                "startIndex": 12,
+                "endIndex": 18
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "hookCategoryName",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 8,
+                    "endIndex": 9
+                  },
+                  "isOptional": false
+                },
+                {
+                  "parameterName": "hookName",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 10,
+                    "endIndex": 11
+                  },
+                  "isOptional": false
+                }
+              ],
+              "typeParameters": [
+                {
+                  "typeParameterName": "HookCategoryNameT",
+                  "constraintTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 3
+                  },
+                  "defaultTypeTokenRange": {
+                    "startIndex": 0,
+                    "endIndex": 0
+                  }
+                },
+                {
+                  "typeParameterName": "HookNameT",
+                  "constraintTokenRange": {
+                    "startIndex": 4,
+                    "endIndex": 7
+                  },
+                  "defaultTypeTokenRange": {
+                    "startIndex": 0,
+                    "endIndex": 0
+                  }
+                }
+              ],
+              "name": "getHooks"
+            },
+            {
+              "kind": "MethodSignature",
+              "canonicalReference": "@nomicfoundation/prototype!HookManager#registerHooks:member(1)",
+              "docComment": "/**\n * Registers hooks in a category.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "registerHooks<HookCategoryNameT extends "
+                },
+                {
+                  "kind": "Content",
+                  "text": "keyof "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatPluginHooks",
+                  "canonicalReference": "@nomicfoundation/prototype!HardhatPluginHooks:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">(hookCategoryName: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "HookCategoryNameT"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", hookCategory: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Partial",
+                  "canonicalReference": "!Partial:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatPluginHooks",
+                  "canonicalReference": "@nomicfoundation/prototype!HardhatPluginHooks:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[HookCategoryNameT]>"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "returnTypeTokenRange": {
+                "startIndex": 11,
+                "endIndex": 12
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "hookCategoryName",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 4,
+                    "endIndex": 5
+                  },
+                  "isOptional": false
+                },
+                {
+                  "parameterName": "hookCategory",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 6,
+                    "endIndex": 10
+                  },
+                  "isOptional": false
+                }
+              ],
+              "typeParameters": [
+                {
+                  "typeParameterName": "HookCategoryNameT",
+                  "constraintTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 3
+                  },
+                  "defaultTypeTokenRange": {
+                    "startIndex": 0,
+                    "endIndex": 0
+                  }
+                }
+              ],
+              "name": "registerHooks"
+            },
+            {
+              "kind": "MethodSignature",
+              "canonicalReference": "@nomicfoundation/prototype!HookManager#runHooksChain:member(1)",
+              "docComment": "/**\n * Runs hooks in a chained fashion, where the last hook (as returned by getHooks) is called first, and can optionally call the next hook in the chain.\n *\n * For a hook to work with this method, it should look like `(arg1: Type1, ..., argN: TypeN, next: (a1: Type1, ..., aN: TypeN) => Promise<ReturnType>) => Promise<ReturnType>`\n *\n * Calling `next` will invoke the next hook in the chain. Note that `next` must only be called once.\n *\n * @param hookCategoryName - The name of the category of the hook to run.\n *\n * @param hookName - The name of the hook to run.\n *\n * @param initialParams - The params to pass to the first hook in the chain.\n *\n * @param defaultHandler - The last function to execute in the chain. This is also called if there are no hooks.\n *\n * @returns The result of executing the chained hooks\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "runHooksChain<HookCategoryNameT extends "
+                },
+                {
+                  "kind": "Content",
+                  "text": "keyof "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatPluginHooks",
+                  "canonicalReference": "@nomicfoundation/prototype!HardhatPluginHooks:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", HookNameT extends "
+                },
+                {
+                  "kind": "Content",
+                  "text": "keyof "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatPluginHooks",
+                  "canonicalReference": "@nomicfoundation/prototype!HardhatPluginHooks:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[HookCategoryNameT]"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">(hookCategoryName: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "HookCategoryNameT"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", hookName: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "HookNameT"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", initialParams: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "ParametersExceptLast",
+                  "canonicalReference": "@nomicfoundation/prototype!ParametersExceptLast:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatPluginHooks",
+                  "canonicalReference": "@nomicfoundation/prototype!HardhatPluginHooks:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[HookCategoryNameT][HookNameT]>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", defaultHandler: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "LastParameter",
+                  "canonicalReference": "@nomicfoundation/prototype!LastParameter:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatPluginHooks",
+                  "canonicalReference": "@nomicfoundation/prototype!HardhatPluginHooks:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[HookCategoryNameT][HookNameT]>"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Awaited",
+                  "canonicalReference": "!Awaited:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "ReturnType",
+                  "canonicalReference": "!ReturnType:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatPluginHooks",
+                  "canonicalReference": "@nomicfoundation/prototype!HardhatPluginHooks:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[HookCategoryNameT][HookNameT]>>>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "returnTypeTokenRange": {
+                "startIndex": 22,
+                "endIndex": 30
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "hookCategoryName",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 8,
+                    "endIndex": 9
+                  },
+                  "isOptional": false
+                },
+                {
+                  "parameterName": "hookName",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 10,
+                    "endIndex": 11
+                  },
+                  "isOptional": false
+                },
+                {
+                  "parameterName": "initialParams",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 12,
+                    "endIndex": 16
+                  },
+                  "isOptional": false
+                },
+                {
+                  "parameterName": "defaultHandler",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 17,
+                    "endIndex": 21
+                  },
+                  "isOptional": false
+                }
+              ],
+              "typeParameters": [
+                {
+                  "typeParameterName": "HookCategoryNameT",
+                  "constraintTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 3
+                  },
+                  "defaultTypeTokenRange": {
+                    "startIndex": 0,
+                    "endIndex": 0
+                  }
+                },
+                {
+                  "typeParameterName": "HookNameT",
+                  "constraintTokenRange": {
+                    "startIndex": 4,
+                    "endIndex": 7
+                  },
+                  "defaultTypeTokenRange": {
+                    "startIndex": 0,
+                    "endIndex": 0
+                  }
+                }
+              ],
+              "name": "runHooksChain"
+            },
+            {
+              "kind": "MethodSignature",
+              "canonicalReference": "@nomicfoundation/prototype!HookManager#runHooksInParallel:member(1)",
+              "docComment": "/**\n * Runs all the hooks in parallel.\n *\n * @param hookCategoryName - The name of the category of the hook to run.\n *\n * @param hookName - The name of the hook to run.\n *\n * @param params - The params to pass to the hooks.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "runHooksInParallel<HookCategoryNameT extends "
+                },
+                {
+                  "kind": "Content",
+                  "text": "keyof "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatPluginHooks",
+                  "canonicalReference": "@nomicfoundation/prototype!HardhatPluginHooks:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", HookNameT extends "
+                },
+                {
+                  "kind": "Content",
+                  "text": "keyof "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatPluginHooks",
+                  "canonicalReference": "@nomicfoundation/prototype!HardhatPluginHooks:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[HookCategoryNameT]"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">(hookCategoryName: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "HookCategoryNameT"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", hookName: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "HookNameT"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", params: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Parameters",
+                  "canonicalReference": "!Parameters:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatPluginHooks",
+                  "canonicalReference": "@nomicfoundation/prototype!HardhatPluginHooks:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[HookCategoryNameT][HookNameT]>"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Array",
+                  "canonicalReference": "!Array:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Awaited",
+                  "canonicalReference": "!Awaited:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "ReturnType",
+                  "canonicalReference": "!ReturnType:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatPluginHooks",
+                  "canonicalReference": "@nomicfoundation/prototype!HardhatPluginHooks:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[HookCategoryNameT][HookNameT]>>>>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "returnTypeTokenRange": {
+                "startIndex": 17,
+                "endIndex": 27
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "hookCategoryName",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 8,
+                    "endIndex": 9
+                  },
+                  "isOptional": false
+                },
+                {
+                  "parameterName": "hookName",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 10,
+                    "endIndex": 11
+                  },
+                  "isOptional": false
+                },
+                {
+                  "parameterName": "params",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 12,
+                    "endIndex": 16
+                  },
+                  "isOptional": false
+                }
+              ],
+              "typeParameters": [
+                {
+                  "typeParameterName": "HookCategoryNameT",
+                  "constraintTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 3
+                  },
+                  "defaultTypeTokenRange": {
+                    "startIndex": 0,
+                    "endIndex": 0
+                  }
+                },
+                {
+                  "typeParameterName": "HookNameT",
+                  "constraintTokenRange": {
+                    "startIndex": 4,
+                    "endIndex": 7
+                  },
+                  "defaultTypeTokenRange": {
+                    "startIndex": 0,
+                    "endIndex": 0
+                  }
+                }
+              ],
+              "name": "runHooksInParallel"
+            },
+            {
+              "kind": "MethodSignature",
+              "canonicalReference": "@nomicfoundation/prototype!HookManager#unregisterHooks:member(1)",
+              "docComment": "/**\n * Removes previously registered hooks.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "unregisterHooks<HookCategoryNameT extends "
+                },
+                {
+                  "kind": "Content",
+                  "text": "keyof "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatPluginHooks",
+                  "canonicalReference": "@nomicfoundation/prototype!HardhatPluginHooks:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">(hookCategoryName: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "HookCategoryNameT"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", hookCategory: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Partial",
+                  "canonicalReference": "!Partial:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HardhatPluginHooks",
+                  "canonicalReference": "@nomicfoundation/prototype!HardhatPluginHooks:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[HookCategoryNameT]>"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "returnTypeTokenRange": {
+                "startIndex": 11,
+                "endIndex": 12
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "hookCategoryName",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 4,
+                    "endIndex": 5
+                  },
+                  "isOptional": false
+                },
+                {
+                  "parameterName": "hookCategory",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 6,
+                    "endIndex": 10
+                  },
+                  "isOptional": false
+                }
+              ],
+              "typeParameters": [
+                {
+                  "typeParameterName": "HookCategoryNameT",
+                  "constraintTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 3
+                  },
+                  "defaultTypeTokenRange": {
+                    "startIndex": 0,
+                    "endIndex": 0
+                  }
+                }
+              ],
+              "name": "unregisterHooks"
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "@nomicfoundation/prototype!LastParameter:type",
+          "docComment": "/**\n * The last parameter of a function.\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type LastParameter<T extends "
+            },
+            {
+              "kind": "Content",
+              "text": "(...args: any[]) => "
+            },
+            {
+              "kind": "Reference",
+              "text": "Promise",
+              "canonicalReference": "!Promise:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<any>"
+            },
+            {
+              "kind": "Content",
+              "text": "> = "
+            },
+            {
+              "kind": "Reference",
+              "text": "Parameters",
+              "canonicalReference": "!Parameters:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<T> extends [...infer _, infer Last] ? Last : never"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "src/types/hooks.ts",
+          "releaseTag": "Public",
+          "name": "LastParameter",
+          "typeParameters": [
+            {
+              "typeParameterName": "T",
+              "constraintTokenRange": {
+                "startIndex": 1,
+                "endIndex": 4
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "typeTokenRange": {
+            "startIndex": 5,
+            "endIndex": 7
+          }
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "@nomicfoundation/prototype!LazyLoadedOptionalHooks:type",
+          "docComment": "/**\n * An object with the different hook that a plugin can define.\n *\n * @see\n *\n * HardhatPlugin#hooks\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type LazyLoadedOptionalHooks = "
+            },
+            {
+              "kind": "Content",
+              "text": "{\n    [K in keyof "
+            },
+            {
+              "kind": "Reference",
+              "text": "HardhatPluginHooks",
+              "canonicalReference": "@nomicfoundation/prototype!HardhatPluginHooks:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "]?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Partial",
+              "canonicalReference": "!Partial:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "HardhatPluginHooks",
+              "canonicalReference": "@nomicfoundation/prototype!HardhatPluginHooks:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "[K]> | string;\n}"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "src/types/plugins.ts",
+          "releaseTag": "Public",
+          "name": "LazyLoadedOptionalHooks",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 8
+          }
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "@nomicfoundation/prototype!ParametersExceptLast:type",
+          "docComment": "/**\n * All the parameters of a function, except the last one.\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type ParametersExceptLast<T extends "
+            },
+            {
+              "kind": "Content",
+              "text": "(...args: any[]) => any"
+            },
+            {
+              "kind": "Content",
+              "text": "> = "
+            },
+            {
+              "kind": "Reference",
+              "text": "Parameters",
+              "canonicalReference": "!Parameters:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<T> extends [...infer Params, any] ? Params : never"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "src/types/hooks.ts",
+          "releaseTag": "Public",
+          "name": "ParametersExceptLast",
+          "typeParameters": [
+            {
+              "typeParameterName": "T",
+              "constraintTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "typeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 5
+          }
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "@nomicfoundation/prototype!SensitiveString:type",
+          "docComment": "/**\n * A sensitive string, which can be provided as a literal string or as a configuration variable.\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type SensitiveString = "
+            },
+            {
+              "kind": "Content",
+              "text": "string | "
+            },
+            {
+              "kind": "Reference",
+              "text": "ConfigurationVariable",
+              "canonicalReference": "@nomicfoundation/prototype!ConfigurationVariable:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "src/types/config.ts",
+          "releaseTag": "Public",
+          "name": "SensitiveString",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 3
+          }
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@nomicfoundation/prototype!SolidityConfig:interface",
+          "docComment": "/**\n * The resolved solidity configuration.\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface SolidityConfig "
+            }
+          ],
+          "fileUrlPath": "src/types/config.ts",
+          "releaseTag": "Public",
+          "name": "SolidityConfig",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!SolidityConfig#version:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "version: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "version",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@nomicfoundation/prototype!SolidityUserConfig:interface",
+          "docComment": "/**\n * The solidity configuration as provided by the user.\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface SolidityUserConfig "
+            }
+          ],
+          "fileUrlPath": "src/types/config.ts",
+          "releaseTag": "Public",
+          "name": "SolidityUserConfig",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!SolidityUserConfig#version:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "version: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "version",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@nomicfoundation/prototype!UserInterruptionManager:interface",
+          "docComment": "/**\n * This interface is used to interact with the user in the middle of the execution of an unrelated piece of functionality.\n *\n * Some examples of things that you may use this interface for: - Asking the user to sign a transaction with his hardware wallet. - Asking the user for a password to descrypt a store of configuration variables.\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface UserInterruptionManager "
+            }
+          ],
+          "fileUrlPath": "src/types/user-interruptions.ts",
+          "releaseTag": "Public",
+          "name": "UserInterruptionManager",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!UserInterruptionManager#displayMessage:member",
+              "docComment": "/**\n * Displays a message to the user, returning a `Promise` that resolve when the message was displayed and we have a good digree of certainty that the user has read it.\n *\n * For example, if the plugin/task handling the user output doesn't refresh the screen, the returned `Promise` can resolve immediately. If it refreshes the screen, the `Promise` may resolve only after certain user interaction.\n *\n * @param interruptor - A name or description of the module calling this method.\n *\n * @param message - The message to display.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "displayMessage: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(interruptor: string, message: string) => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<void>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "displayMessage",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 4
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!UserInterruptionManager#requestInput:member",
+              "docComment": "/**\n * Request user input, returning a `Promise` that resolves with the user's input.\n *\n * @param interruptor - A name or description of the module calling this method.\n *\n * @param inputDescription - A description of the input that is being requested.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "requestInput: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(interruptor: string, inputDescription: string) => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<string>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "requestInput",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 4
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!UserInterruptionManager#requestSecretInput:member",
+              "docComment": "/**\n * Request a secret input from the user, returning a `Promise` that resolves with the user's input.\n *\n * The main difference between this method and `requestInput` is that this method is that the plugin/task handling the user input/output should take extra care to avoid leaking the user's input or displaying it in the user's terminal.\n *\n * @param interruptor - A name or description of the module calling this method.\n *\n * @param inputDescription - A description of the input that is being requested.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "requestSecretInput: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(interruptor: string, inputDescription: string) => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<string>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "requestSecretInput",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 4
+              }
+            },
+            {
+              "kind": "MethodSignature",
+              "canonicalReference": "@nomicfoundation/prototype!UserInterruptionManager#uninterrupted:member(1)",
+              "docComment": "/**\n * Executes `f` without allowing user interruptions during its execution.\n *\n * @param f - The function to execute.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "uninterrupted<ReturnT>(f: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "() => ReturnT"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Awaited",
+                  "canonicalReference": "!Awaited:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<ReturnT>>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 7
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "f",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  },
+                  "isOptional": false
+                }
+              ],
+              "typeParameters": [
+                {
+                  "typeParameterName": "ReturnT",
+                  "constraintTokenRange": {
+                    "startIndex": 0,
+                    "endIndex": 0
+                  },
+                  "defaultTypeTokenRange": {
+                    "startIndex": 0,
+                    "endIndex": 0
+                  }
+                }
+              ],
+              "name": "uninterrupted"
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@nomicfoundation/prototype!UserInterruptionsHooks:interface",
+          "docComment": "/**\n * User interruptions-related hooks.\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface UserInterruptionsHooks extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "HookCategory",
+              "canonicalReference": "@nomicfoundation/prototype!HookCategory:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            }
+          ],
+          "fileUrlPath": "src/types/plugins.ts",
+          "releaseTag": "Public",
+          "name": "UserInterruptionsHooks",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!UserInterruptionsHooks#displayMessage:member",
+              "docComment": "/**\n * Provide an implementation of this hook to customize how the `UserInterruptionManager` displays messages to the user.\n *\n * @param interruptor - A name or description of the module trying to display the message.\n *\n * @param message - The message to display.\n *\n * @param next - A function to call if the hook implementation decides to not handle the message.\n *\n * @see\n *\n * UserInterruptionManager#displayMessage to understand when the returned promise should be resolved.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "displayMessage: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(interruptor: string, message: string, next: (i: string, m: string) => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<void>) => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<void>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "displayMessage",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 6
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!UserInterruptionsHooks#requestInput:member",
+              "docComment": "/**\n * Provide an implementation of this hook to customize how the `UserInterruptionManager` requests input from the user.\n *\n * @param interruptor - A name or description of the module trying to request input form the user.\n *\n * @param inputDescription - A description of the input that is being requested.\n *\n * @param next - A function to call if the hook implementation decides to not handle the input request.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "requestInput: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(interruptor: string, inputDescription: string, next: (i: string, id: string) => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<string>) => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<string>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "requestInput",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 6
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@nomicfoundation/prototype!UserInterruptionsHooks#requestSecretInput:member",
+              "docComment": "/**\n * Provide an implementation of this hook to customize how the `UserInterruptionManager` requests a secret input from the user.\n *\n * Note that your implementation of this hook should take care of to not display the user's input in the console, and not leak it in any way.\n *\n * @param interruptor - A name or description of the module trying to request input form the user.\n *\n * @param inputDescription - A description of the input that is being requested.\n *\n * @param next - A function to call if the hook implementation decides to not handle the input request.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "requestSecretInput: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(interruptor: string, inputDescription: string, next: (i: string, id: string) => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<string>) => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<string>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "requestSecretInput",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 6
+              }
+            }
+          ],
+          "extendsTokenRanges": [
+            {
+              "startIndex": 1,
+              "endIndex": 2
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

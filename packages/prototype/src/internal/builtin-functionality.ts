@@ -1,4 +1,4 @@
-import type { HardhatPlugin } from "./types/plugins.js";
+import type { HardhatPlugin } from "../types/plugins.js";
 import { z } from "zod";
 import {
   SensitiveStringType,

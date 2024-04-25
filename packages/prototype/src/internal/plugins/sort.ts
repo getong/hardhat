@@ -1,4 +1,4 @@
-import { HardhatPlugin } from "../types/plugins.js";
+import { HardhatPlugin } from "../../types/plugins.js";
 
 /**
  * Returns an array of reverse topological order of the plugins and their dependencies.
