@@ -27,7 +27,7 @@ export interface HardhatUserConfig {
  */
 export interface HardhatConfig {
   solidity: SolidityConfig;
-  privateKey: SensitiveString;
+  privateKey?: SensitiveString;
 }
 
 /**

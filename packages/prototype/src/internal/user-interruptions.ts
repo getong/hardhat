@@ -18,7 +18,7 @@ export class UserInterruptionManagerImplementation
   ): Promise<void> {
     return this.#mutex.excluiveRun(async () => {
       return this.#hooks.runHooksChain(
-        "userInterruption",
+        "userInterruptions",
         "displayMessage",
         [interruptor, message],
         defaultDisplayMessage,
@@ -32,7 +32,7 @@ export class UserInterruptionManagerImplementation
   ): Promise<string> {
     return this.#mutex.excluiveRun(async () => {
       return this.#hooks.runHooksChain(
-        "userInterruption",
+        "userInterruptions",
         "requestInput",
         [interruptor, inputDescription],
         defaultRequestInput,
@@ -46,7 +46,7 @@ export class UserInterruptionManagerImplementation
   ): Promise<string> {
     return this.#mutex.excluiveRun(async () => {
       return this.#hooks.runHooksChain(
-        "userInterruption",
+        "userInterruptions",
         "requestSecretInput",
         [interruptor, inputDescription],
         defaultRequestSecretInput,
@@ -62,39 +62,79 @@ export class UserInterruptionManagerImplementation
 }
 
 async function defaultDisplayMessage(interruptor: string, message: string) {
-  console.log(`[${interruptor}]: ${message}`);
+  const chalk = (await import("chalk")).default.default;
+  console.log(chalk.blue(`[${interruptor}]`) + ` ${message}`);
 }
 
 async function defaultRequestInput(
   interruptor: string,
   inputDescription: string,
-) {
-  const { default: enquirer } = await import("enquirer");
-  const questions = [
-    {
-      type: "input",
-      name: "input",
-      message: `[${interruptor}] ${inputDescription}`,
-    },
-  ];
+): Promise<string> {
+  const { createInterface } = await import("node:readline");
+  const chalk = (await import("chalk")).default.default;
+  const rl = createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
 
-  const answers = (await enquirer.prompt(questions)) as any;
-  return answers.input;
+  return new Promise<string>((resolve) => {
+    rl.question(
+      chalk.blue(`[${interruptor}]`) + ` ${inputDescription}: `,
+      (answer) => {
+        resolve(answer);
+        rl.close();
+      },
+    );
+  });
 }
 
 async function defaultRequestSecretInput(
   interruptor: string,
   inputDescription: string,
-) {
-  const { default: enquirer } = await import("enquirer");
-  const questions = [
-    {
-      type: "password",
-      name: "input",
-      message: `[${interruptor}] ${inputDescription}`,
-    },
-  ];
+): Promise<string> {
+  const { createInterface } = await import("node:readline");
+  const chalk = (await import("chalk")).default.default;
+  const rl = createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
 
-  const answers = (await enquirer.prompt(questions)) as any;
-  return answers.input;
+  const rlAsAny = rl as any;
+
+  let initialMessage: string | undefined;
+
+  rlAsAny._writeToOutput = (out: string) => {
+    if (initialMessage === undefined || out.length !== 1) {
+      if (initialMessage === undefined) {
+        initialMessage = out;
+      }
+
+      // We shouw the initial message as is
+      if (out.startsWith(initialMessage)) {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        rlAsAny.output!.write(initialMessage);
+        out = out.slice(initialMessage.length);
+      } else if (out.trim() === "") {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        rlAsAny.output!.write(out);
+        out = "";
+      }
+    }
+
+    // We show the rest of the chars as "*"
+    for (const _ of out) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      rlAsAny.output!.write("*");
+    }
+  };
+
+  return new Promise<string>((resolve) => {
+    rl.question(
+      chalk.blue(`[${interruptor}]`) + ` ${inputDescription}: `,
+      (answer) => {
+        resolve(answer);
+        rl.close();
+      },
+    );
+  });
 }

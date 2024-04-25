@@ -18,3 +18,17 @@ export interface HardhatRuntimeEnvironment {
   // Build system
   // Task runner
 }
+
+// Defined here to avoid a circular dependency.
+declare module "./plugins.js" {
+  /**
+   * Hardhat Runtime Environment-related hooks.
+   */
+  interface HardhatRuntimeEnvironmentHooks {
+    created: (hre: HardhatRuntimeEnvironment) => Promise<void>;
+  }
+
+  export interface HardhatPluginHooks {
+    hre: HardhatRuntimeEnvironmentHooks;
+  }
+}

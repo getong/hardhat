@@ -34,7 +34,32 @@ export default {
           version,
         };
 
+        resolvedConfig.privateKey = userConfig.privateKey;
+
         return resolvedConfig;
+      },
+    },
+    hre: {
+      created: async (hre) => {
+        let configVariablesStore: Record<string, string> | undefined;
+
+        hre.hooks.registerHooks("configurationVariables", {
+          resolve: async (interruptions, variable, _next) => {
+            if (configVariablesStore === undefined) {
+              const password = await interruptions.requestSecretInput(
+                "Configuration variables",
+                "Encryption password",
+              );
+
+              void password;
+              configVariablesStore = {
+                [variable.name]: `decrypted value of ${variable.name} with password "${password}"`,
+              };
+            }
+
+            return configVariablesStore[variable.name];
+          },
+        });
       },
     },
   },

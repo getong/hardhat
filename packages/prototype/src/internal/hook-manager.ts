@@ -2,6 +2,8 @@ import {
   HookManager,
   LastParameter,
   ParametersExceptLast,
+  Params,
+  Return,
 } from "../types/hooks.js";
 import { HardhatPlugin, HardhatPluginHooks } from "../types/plugins.js";
 import builtinFunctionality from "./builtin-functionality.js";
@@ -79,7 +81,7 @@ export class HookManagerImplementation implements HookManager {
       HardhatPluginHooks[HookCategoryNameT][HookNameT]
     >,
   ): Promise<
-    Awaited<ReturnType<HardhatPluginHooks[HookCategoryNameT][HookNameT]>>
+    Awaited<Return<HardhatPluginHooks[HookCategoryNameT][HookNameT]>>
   > {
     if (typeof defaultHandler !== "function") {
       throw new Error("Default handler must be a function");
@@ -90,7 +92,7 @@ export class HookManagerImplementation implements HookManager {
     let index = hooks.length - 1;
     const next = async (...params: typeof initialParams) => {
       if (index >= 0) {
-        return hooks[index--](...params, next);
+        return (hooks[index--] as any)(...params, next);
       }
 
       return defaultHandler(...params);
@@ -99,19 +101,24 @@ export class HookManagerImplementation implements HookManager {
     return next(...initialParams);
   }
 
-  public async runHooksInParallel<
+  public async runHooksInOrder<
     HookCategoryNameT extends keyof HardhatPluginHooks,
     HookNameT extends keyof HardhatPluginHooks[HookCategoryNameT],
   >(
     hookCategoryName: HookCategoryNameT,
     hookName: HookNameT,
-    params: Parameters<HardhatPluginHooks[HookCategoryNameT][HookNameT]>,
+    params: Params<HardhatPluginHooks[HookCategoryNameT][HookNameT]>,
   ): Promise<
-    Array<Awaited<ReturnType<HardhatPluginHooks[HookCategoryNameT][HookNameT]>>>
+    Array<Awaited<Return<HardhatPluginHooks[HookCategoryNameT][HookNameT]>>>
   > {
     const hooks = await this.getHooks(hookCategoryName, hookName);
 
-    return Promise.all(hooks.map((hook) => hook(...params)));
+    const result = [];
+    for (const hook of hooks) {
+      result.push(await (hook as any)(...params));
+    }
+
+    return result;
   }
 
   async #getDynamicHooks<

@@ -23,13 +23,19 @@ export class ConfigurationVariableResolverImplementation
       return variable;
     }
 
-    const password = await this.#userInterruptions.requestSecretInput(
-      "Encryption password",
-      "Configuration variables",
+    return this.#hooks.runHooksChain(
+      "configurationVariables",
+      "resolve",
+      [this.#userInterruptions, variable],
+      async (_i, v) => {
+        const value = process.env[v.name];
+
+        if (typeof value !== "string") {
+          throw new Error("Variable not found");
+        }
+
+        return value;
+      },
     );
-
-    void password;
-
-    return "foo";
   }
 }

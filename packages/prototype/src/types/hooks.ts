@@ -56,46 +56,53 @@ export interface HookManager {
   runHooksChain<
     HookCategoryNameT extends keyof HardhatPluginHooks,
     HookNameT extends keyof HardhatPluginHooks[HookCategoryNameT],
+    HookT extends HardhatPluginHooks[HookCategoryNameT][HookNameT],
   >(
     hookCategoryName: HookCategoryNameT,
     hookName: HookNameT,
-    initialParams: ParametersExceptLast<
-      HardhatPluginHooks[HookCategoryNameT][HookNameT]
-    >,
-    defaultHandler: LastParameter<
-      HardhatPluginHooks[HookCategoryNameT][HookNameT]
-    >,
-  ): Promise<
-    Awaited<ReturnType<HardhatPluginHooks[HookCategoryNameT][HookNameT]>>
-  >;
+    initialParams: ParametersExceptLast<HookT>,
+    defaultHandler: LastParameter<HookT>,
+  ): Promise<Awaited<Return<HookT>>>;
 
   /**
-   * Runs all the hooks in parallel.
+   * Runs all the hooks in the same order that `getHooks` returns them.
    *
    * @param hookCategoryName - The name of the category of the hook to run.
    * @param hookName - The name of the hook to run.
    * @param params - The params to pass to the hooks.
    */
-  runHooksInParallel<
+  runHooksInOrder<
     HookCategoryNameT extends keyof HardhatPluginHooks,
     HookNameT extends keyof HardhatPluginHooks[HookCategoryNameT],
+    HookT extends HardhatPluginHooks[HookCategoryNameT][HookNameT],
   >(
     hookCategoryName: HookCategoryNameT,
     hookName: HookNameT,
-    params: Parameters<HardhatPluginHooks[HookCategoryNameT][HookNameT]>,
-  ): Promise<
-    Array<Awaited<ReturnType<HardhatPluginHooks[HookCategoryNameT][HookNameT]>>>
-  >;
+    params: Params<HookT>,
+  ): Promise<Array<Awaited<Return<HookT>>>>;
 }
+
+/**
+ * All the parameters of a function.
+ */
+export type Params<T> = T extends (...args: infer P) => any ? P : never;
 
 /**
  * All the parameters of a function, except the last one.
  */
-export type ParametersExceptLast<T extends (...args: any[]) => any> =
-  Parameters<T> extends [...infer Params, any] ? Params : never;
+export type ParametersExceptLast<T> = T extends (
+  ...args: [...infer P, any]
+) => any
+  ? P
+  : never;
 
 /**
  * The last parameter of a function.
  */
-export type LastParameter<T extends (...args: any[]) => Promise<any>> =
-  Parameters<T> extends [...infer _, infer Last] ? Last : never;
+export type LastParameter<T> = T extends (
+  ...args: [...infer _P, infer Last]
+) => any
+  ? Last
+  : never;
+
+export type Return<T> = T extends (...args: any[]) => infer Ret ? Ret : never;

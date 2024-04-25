@@ -1,4 +1,9 @@
-import { HardhatConfig, HardhatUserConfig } from "./config.js";
+import {
+  ConfigurationVariable,
+  HardhatConfig,
+  HardhatUserConfig,
+} from "./config.js";
+import { UserInterruptionManager } from "./user-interruptions.js";
 
 // We add the plugins to the config with a module augmentation
 // to keep everything plugin-related here, and at the same time
@@ -63,21 +68,15 @@ export type LazyLoadedOptionalHooks = {
  * The different hooks that a plugin can define.
  */
 export interface HardhatPluginHooks {
-  config: HardhatPluginConfigHooks;
-  userInterruption: UserInterruptionsHooks;
-}
-
-/**
- * The base interface for all hook categories.
- */
-export interface HookCategory {
-  [hookName: string]: (...any: any[]) => any;
+  config: ConfigHooks;
+  userInterruptions: UserInterruptionHooks;
+  configurationVariables: ConfigurationVariableHooks;
 }
 
 /**
  * Config-related hooks.
  */
-export interface HardhatPluginConfigHooks extends HookCategory {
+export interface ConfigHooks {
   /**
    * Provide an implementation of this hook to extend the user's config,
    * before any validation or resolution is done.
@@ -130,9 +129,33 @@ export interface HardhatUserConfigValidationError {
 }
 
 /**
+ * Configuration variable-related hooks.
+ */
+export interface ConfigurationVariableHooks {
+  /**
+   * Provide an implementation of this hook to customize how to resolve
+   * a configuration variable into its actual value.
+   *
+   * @param interruptions - A `UserInterruptionManager` that can be used to
+   *  interact with the user.
+   * @param variable - The configuration variable or string to resolve.
+   * @param next - A function to call if the hook implementation decides to not
+   *  handle the resolution of this variable.
+   */
+  resolve: (
+    interruptions: UserInterruptionManager,
+    variable: ConfigurationVariable,
+    next: (
+      i: UserInterruptionManager,
+      v: ConfigurationVariable,
+    ) => Promise<string>,
+  ) => Promise<string>;
+}
+
+/**
  * User interruptions-related hooks.
  */
-export interface UserInterruptionsHooks extends HookCategory {
+export interface UserInterruptionHooks {
   /**
    * Provide an implementation of this hook to customize how the
    * `UserInterruptionManager` displays messages to the user.

@@ -63,13 +63,17 @@ export class HardhatRuntimeEnvironmentImplementation
       config,
     );
 
-    return new HardhatRuntimeEnvironmentImplementation(
+    const hre = new HardhatRuntimeEnvironmentImplementation(
       userConfig,
       resolvedConfig,
       hooks,
       interruptions,
       configVariables,
     );
+
+    await hooks.runHooksInOrder("hre", "created", [hre]);
+
+    return hre;
   }
 
   private constructor(
@@ -99,11 +103,9 @@ async function validateUserConfig(
   hooks: HookManager,
   config: HardhatUserConfig,
 ): Promise<HardhatUserConfigValidationError[]> {
-  const results = await hooks.runHooksInParallel(
-    "config",
-    "validateUserConfig",
-    [config],
-  );
+  const results = await hooks.runHooksInOrder("config", "validateUserConfig", [
+    config,
+  ]);
 
   return results.flat(1);
 }

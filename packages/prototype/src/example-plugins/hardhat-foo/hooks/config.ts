@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { HardhatPluginConfigHooks } from "../../../types/plugins.js";
+import { ConfigHooks } from "../../../types/plugins.js";
 import { validateUserConfigZodType } from "../../../internal/config/validation-utils.js";
 
 const fooUserConfigType = z.object({
@@ -10,7 +10,7 @@ const hardhatUserConfig = z.object({
   foo: z.optional(fooUserConfigType),
 });
 
-const hooks: Partial<HardhatPluginConfigHooks> = {
+const hooks: Partial<ConfigHooks> = {
   validateUserConfig: async (userConfig) => {
     return validateUserConfigZodType(userConfig, hardhatUserConfig);
   },

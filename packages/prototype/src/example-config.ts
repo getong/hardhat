@@ -1,5 +1,6 @@
 import type { HardhatUserConfig } from "./types/config.js";
 import hardhatFoo from "./example-plugins/hardhat-foo/index.js";
+import { configVariable } from "./config.js";
 
 export default {
   plugins: [hardhatFoo],
@@ -7,5 +8,5 @@ export default {
   foo: {
     bar: 12,
   },
-  privateKey: "asd",
+  privateKey: configVariable("PRIVATE_KEY"),
 } satisfies HardhatUserConfig;

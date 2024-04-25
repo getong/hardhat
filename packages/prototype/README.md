@@ -1,8 +1,8 @@
 ## TODO
 
-- [] Environment extensions
+- [] Config variables (the object) validation and resolution
+- [] Resolved config variabeles validation
 - [] Custom global arguments
 - [] Tasks system
-- [] Hook running utils
-- [] First class secrets
-- [] Build profile as custom global argument
+
+- Hooks that use state will always be dynamic, which is confusing when you try to override it, as you need to know when to override it
