@@ -1,4 +1,4 @@
-import { HookManager } from "../types/hooks.js";
+import { HookContext, HookManager } from "../types/hooks.js";
 import { UserInterruptionManager } from "../types/user-interruptions.js";
 import { AsyncMutex } from "./async-mutex.js";
 
@@ -61,12 +61,17 @@ export class UserInterruptionManagerImplementation
   }
 }
 
-async function defaultDisplayMessage(interruptor: string, message: string) {
+async function defaultDisplayMessage(
+  _context: HookContext,
+  interruptor: string,
+  message: string,
+) {
   const chalk = (await import("chalk")).default.default;
   console.log(chalk.blue(`[${interruptor}]`) + ` ${message}`);
 }
 
 async function defaultRequestInput(
+  _context: HookContext,
   interruptor: string,
   inputDescription: string,
 ): Promise<string> {
@@ -89,6 +94,7 @@ async function defaultRequestInput(
 }
 
 async function defaultRequestSecretInput(
+  _context: HookContext,
   interruptor: string,
   inputDescription: string,
 ): Promise<string> {

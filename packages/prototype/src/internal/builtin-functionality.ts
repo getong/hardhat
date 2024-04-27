@@ -17,12 +17,19 @@ const HardhatUserConfig = z.object({
 export default {
   id: "builtin-functionality",
   hooks: {
-    config: {
+    config: async () => ({
       validateUserConfig: async (config) => {
         return validateUserConfigZodType(config, HardhatUserConfig);
       },
-      resolveUserConfig: async (userConfig, next) => {
-        const resolvedConfig = await next(userConfig);
+      resolveUserConfig: async (
+        userConfig,
+        resolveConfigurationVariable,
+        next,
+      ) => {
+        const resolvedConfig = await next(
+          userConfig,
+          resolveConfigurationVariable,
+        );
 
         const version =
           typeof userConfig.solidity === "string"
@@ -34,33 +41,37 @@ export default {
           version,
         };
 
-        resolvedConfig.privateKey = userConfig.privateKey;
+        console.log("here");
+
+        if (userConfig.privateKey !== undefined) {
+          resolvedConfig.privateKey = resolveConfigurationVariable(
+            userConfig.privateKey,
+          );
+        }
 
         return resolvedConfig;
       },
-    },
-    hre: {
-      created: async (hre) => {
-        let configVariablesStore: Record<string, string> | undefined;
+    }),
+    configurationVariables: async () => {
+      let configVariablesStore: Record<string, string> | undefined;
 
-        hre.hooks.registerHooks("configurationVariables", {
-          resolve: async (interruptions, variable, _next) => {
-            if (configVariablesStore === undefined) {
-              const password = await interruptions.requestSecretInput(
-                "Configuration variables",
-                "Encryption password",
-              );
+      return {
+        resolve: async (context, variable, _next) => {
+          if (configVariablesStore === undefined) {
+            const password = await context.interruptions.requestSecretInput(
+              "Configuration variables",
+              "Encryption password",
+            );
 
-              void password;
-              configVariablesStore = {
-                [variable.name]: `decrypted value of ${variable.name} with password "${password}"`,
-              };
-            }
+            void password;
+            configVariablesStore = {
+              [variable.name]: `decrypted value of ${variable.name} with password "${password}"`,
+            };
+          }
 
-            return configVariablesStore[variable.name];
-          },
-        });
-      },
+          return configVariablesStore[variable.name];
+        },
+      };
     },
   },
   dependencies: [],

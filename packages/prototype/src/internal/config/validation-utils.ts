@@ -1,5 +1,5 @@
 import { ZodType, ZodTypeDef, ZodIssue, z } from "zod";
-import { HardhatUserConfigValidationError } from "../../types/plugins.js";
+import { HardhatUserConfigValidationError } from "../../types/hooks.js";
 import { HardhatUserConfig } from "../../types/config.js";
 
 export const ConfigurationVariableType = z.object({

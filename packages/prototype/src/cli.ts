@@ -1,5 +1,5 @@
 import { join, isAbsolute } from "path";
-import { HardhatRuntimeEnvironment } from "./api-extractor-entrypoint.js";
+import { HardhatRuntimeEnvironment } from "./types/hre.js";
 import { createHardhatRuntimeEnvironment } from "./index.js";
 
 await main();
@@ -41,13 +41,15 @@ async function ignitionMockTask(hre: HardhatRuntimeEnvironment) {
   // This code simulates asking the user for a private key in the
   // middle of the execution. It could be from a provider, for example.
   setTimeout(async () => {
+    console.log(hre.config);
     // The private key is lazily fetched, so it uses a user interruption
     // to ask for it.
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const pk = await hre.configVariables.resolve(hre.config.privateKey!);
+    const pk = await hre.config.privateKey!.get();
     await hre.interruptions.displayMessage("CLI", "Got private key: " + pk);
 
-    const pk2 = await hre.configVariables.resolve(hre.config.privateKey!);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const pk2 = await hre.config.privateKey!.get();
     await hre.interruptions.displayMessage("CLI", "Got private key: " + pk2);
   }, 500);
 

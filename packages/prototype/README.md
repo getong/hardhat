@@ -1,8 +1,6 @@
 ## TODO
 
-- [] Config variables (the object) validation and resolution
-- [] Resolved config variabeles validation
+- [] Config variables should be resolved to an object with a .get() method
+- [] The resolved config variable object should also have .getUrl() and .getBigInt() that validate the value.
 - [] Custom global arguments
 - [] Tasks system
-
-- Hooks that use state will always be dynamic, which is confusing when you try to override it, as you need to know when to override it

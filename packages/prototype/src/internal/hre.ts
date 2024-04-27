@@ -1,17 +1,18 @@
 import type { HardhatRuntimeEnvironment } from "../types/hre.js";
 import { HardhatUserConfig, HardhatConfig } from "../types/config.js";
-import { HookManager } from "../types/hooks.js";
 import {
-  HardhatPlugin,
   HardhatUserConfigValidationError,
-} from "../types/plugins.js";
+  HookContext,
+  HookManager,
+} from "../types/hooks.js";
+import { HardhatPlugin } from "../types/plugins.js";
 import { UserInterruptionManager } from "../types/user-interruptions.js";
-import { ConfigurationVariableResolver } from "../types/configuration-variables.js";
+
 import { HookManagerImplementation } from "./hook-manager.js";
 import builtinFunctionality from "./builtin-functionality.js";
 import { reverseTopologicalSort } from "./plugins/sort.js";
 import { UserInterruptionManagerImplementation } from "./user-interruptions.js";
-import { ConfigurationVariableResolverImplementation } from "./config/configuration-variables.js";
+import { ResolvedConfigurationVariableImplementation } from "./config/configuration-variables.js";
 
 export class HardhatRuntimeEnvironmentImplementation
   implements HardhatRuntimeEnvironment
@@ -19,7 +20,7 @@ export class HardhatRuntimeEnvironmentImplementation
   public static async create(
     config: HardhatUserConfig,
   ): Promise<HardhatRuntimeEnvironmentImplementation> {
-    // Clone with lodash or https://github.com/davidmarkclements/rfdc
+    // TODO: Clone with lodash or https://github.com/davidmarkclements/rfdc
     const clonedConfig = config;
 
     // Topological sort of plugins
@@ -30,10 +31,6 @@ export class HardhatRuntimeEnvironmentImplementation
 
     const hooks = new HookManagerImplementation(sortedPlugins);
     const interruptions = new UserInterruptionManagerImplementation(hooks);
-    const configVariables = new ConfigurationVariableResolverImplementation(
-      interruptions,
-      hooks,
-    );
 
     // extend user config:
     const userConfig = await runUserConfigExtensions(hooks, clonedConfig);
@@ -63,12 +60,22 @@ export class HardhatRuntimeEnvironmentImplementation
       config,
     );
 
+    // Set the HookContext in the hook manager so that non-config hooks can
+    // use it
+
+    const hookContext: HookContext = {
+      hooks,
+      config: resolvedConfig,
+      interruptions,
+    };
+
+    hooks.setContext(hookContext);
+
     const hre = new HardhatRuntimeEnvironmentImplementation(
       userConfig,
       resolvedConfig,
       hooks,
       interruptions,
-      configVariables,
     );
 
     await hooks.runHooksInOrder("hre", "created", [hre]);
@@ -81,7 +88,6 @@ export class HardhatRuntimeEnvironmentImplementation
     public readonly config: HardhatConfig,
     public readonly hooks: HookManager,
     public readonly interruptions: UserInterruptionManager,
-    public readonly configVariables: ConfigurationVariableResolver,
   ) {}
 }
 
@@ -122,8 +128,12 @@ async function resolveUserConfig(
   return hooks.runHooksChain(
     "config",
     "resolveUserConfig",
-    [config],
-    async (_) => {
+    [
+      config,
+      (variable) =>
+        new ResolvedConfigurationVariableImplementation(hooks, variable),
+    ],
+    async (_, __) => {
       return initialResolvedConfig;
     },
   );

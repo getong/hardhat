@@ -1,9 +1,4 @@
-import {
-  ConfigurationVariable,
-  HardhatConfig,
-  HardhatUserConfig,
-} from "./config.js";
-import { UserInterruptionManager } from "./user-interruptions.js";
+import { HardhatHooks } from "./hooks.js";
 
 // We add the plugins to the config with a module augmentation
 // to keep everything plugin-related here, and at the same time
@@ -47,7 +42,7 @@ export interface HardhatPlugin {
    * In production, you must use a `string` with the path to a file that
    * exports as `default` an object with the hook implementations.
    */
-  hooks?: LazyLoadedOptionalHooks;
+  hooks?: LazyLoadedHookCategoryFactories;
 
   /**
    * An arary of plugins that this plugins depends on.
@@ -56,159 +51,15 @@ export interface HardhatPlugin {
 }
 
 /**
- * An object with the different hook that a plugin can define.
+ * An object with the factories for the different hook categories that a plugin can define.
  *
  * @see HardhatPlugin#hooks
  */
-export type LazyLoadedOptionalHooks = {
-  [K in keyof HardhatPluginHooks]?: Partial<HardhatPluginHooks[K]> | string;
+export type LazyLoadedHookCategoryFactories = {
+  [HookCategoryNameT in keyof HardhatHooks]?:
+    | HookCategoryFactory<HookCategoryNameT>
+    | string;
 };
 
-/**
- * The different hooks that a plugin can define.
- */
-export interface HardhatPluginHooks {
-  config: ConfigHooks;
-  userInterruptions: UserInterruptionHooks;
-  configurationVariables: ConfigurationVariableHooks;
-}
-
-/**
- * Config-related hooks.
- */
-export interface ConfigHooks {
-  /**
-   * Provide an implementation of this hook to extend the user's config,
-   * before any validation or resolution is done.
-   *
-   * @param config - The user's config.
-   * @param next - A function to call to the next hook.
-   * @returns The extended config.
-   */
-  extendUserConfig: (
-    config: HardhatUserConfig,
-    next: (c: HardhatUserConfig) => Promise<HardhatUserConfig>,
-  ) => Promise<HardhatUserConfig>;
-
-  /**
-   * Provide an implementation of this hook to run validations on the user's
-   * config.
-   *
-   * @param config - The user's config.
-   * @returns An array of validation errors.
-   */
-  validateUserConfig: (
-    config: HardhatUserConfig,
-  ) => Promise<HardhatUserConfigValidationError[]>;
-
-  /**
-   * Provide an implementation of this hook to resolve parts of the user's
-   * config into the final HardhatConfig.
-   *
-   * To use this hook, plugins are encouraged to call `next(config)` first,
-   * and construct a resolved config based on its result. Note that While
-   * that result is typed as `HardhatConfig`, it may actually be incomplete, as
-   * other plugins may not have resolved their parts of the config yet.
-   *
-   * @param config - The user's config.
-   * @param next - A function to call to the next hook.
-   * @returns The resolved config.
-   */
-  resolveUserConfig: (
-    config: HardhatUserConfig,
-    next: (userConfig: HardhatUserConfig) => Promise<HardhatConfig>,
-  ) => Promise<HardhatConfig>;
-}
-
-/**
- * A HardhatUser validation error.
- */
-export interface HardhatUserConfigValidationError {
-  path: Array<string | number>;
-  message: string;
-}
-
-/**
- * Configuration variable-related hooks.
- */
-export interface ConfigurationVariableHooks {
-  /**
-   * Provide an implementation of this hook to customize how to resolve
-   * a configuration variable into its actual value.
-   *
-   * @param interruptions - A `UserInterruptionManager` that can be used to
-   *  interact with the user.
-   * @param variable - The configuration variable or string to resolve.
-   * @param next - A function to call if the hook implementation decides to not
-   *  handle the resolution of this variable.
-   */
-  resolve: (
-    interruptions: UserInterruptionManager,
-    variable: ConfigurationVariable,
-    next: (
-      i: UserInterruptionManager,
-      v: ConfigurationVariable,
-    ) => Promise<string>,
-  ) => Promise<string>;
-}
-
-/**
- * User interruptions-related hooks.
- */
-export interface UserInterruptionHooks {
-  /**
-   * Provide an implementation of this hook to customize how the
-   * `UserInterruptionManager` displays messages to the user.
-   *
-   *
-   * @see UserInterruptionManager#displayMessage to understand when the returned
-   *  promise should be resolved.
-   * @param interruptor - A name or description of the module trying to display
-   *  the message.
-   * @param message - The message to display.
-   * @param next - A function to call if the hook implementation decides to not
-   *  handle the message.
-   */
-  displayMessage: (
-    interruptor: string,
-    message: string,
-    next: (i: string, m: string) => Promise<void>,
-  ) => Promise<void>;
-
-  /**
-   * Provide an implementation of this hook to customize how the
-   * `UserInterruptionManager` requests input from the user.
-   *
-   * @param interruptor - A name or description of the module trying to request
-   *  input form the user.
-   * @param inputDescription - A description of the input that is being
-   *  requested.
-   * @param next - A function to call if the hook implementation decides to not
-   *  handle the input request.
-   */
-  requestInput: (
-    interruptor: string,
-    inputDescription: string,
-    next: (i: string, id: string) => Promise<string>,
-  ) => Promise<string>;
-
-  /**
-   * Provide an implementation of this hook to customize how the
-   * `UserInterruptionManager` requests a secret input from the user.
-   *
-   * Note that your implementation of this hook should take care of to
-   * not display the user's input in the console, and not leak it in any way.
-   *
-   * @param interruptor - A name or description of the module trying to request
-   *  input form the user.
-   * @param inputDescription - A description of the input that is being
-   *  requested.
-   * @param next - A function to call if the hook implementation decides to not
-   *  handle the input request.
-   */
-  requestSecretInput: (
-    interruptor: string,
-    inputDescription: string,
-    next: (i: string, id: string) => Promise<string>,
-  ) => Promise<string>;
-}
+export type HookCategoryFactory<CategoryNameT extends keyof HardhatHooks> =
+  () => Promise<Partial<HardhatHooks[CategoryNameT]>>;
