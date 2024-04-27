@@ -12,7 +12,7 @@
    *
    * SUPPORTED TOKENS: <projectFolder>, <packageName>, <unscopedPackageName>
    */
-  "mainEntryPointFilePath": "<projectFolder>/dist/src/api.d.ts",
+  "mainEntryPointFilePath": "<projectFolder>/dist/src/api-extractor-entrypoint.d.ts",
 
   /**
    * A list of NPM package names whose exports should be treated as part of this package.

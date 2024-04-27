@@ -1,5 +1,5 @@
 import { join, isAbsolute } from "path";
-import { HardhatRuntimeEnvironment } from "./api.js";
+import { HardhatRuntimeEnvironment } from "./api-extractor-entrypoint.js";
 import { createHardhatRuntimeEnvironment } from "./index.js";
 
 await main();

@@ -496,7 +496,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@nomicfoundation/prototype!ConfigurationVariableHooks#resolve:member",
-              "docComment": "/**\n * Provide an implementation of this hook to customize how to resolve a configuration variable into its actual value.\n *\n * @param variable - The configuration variable or string to resolve.\n *\n * @param interruptions - A `UserInterruptionManager` that can be used to interact with the user.\n *\n * @param next - A function to call if the hook implementation decides to not handle the resolution of this variable.\n */\n",
+              "docComment": "/**\n * Provide an implementation of this hook to customize how to resolve a configuration variable into its actual value.\n *\n * @param interruptions - A `UserInterruptionManager` that can be used to interact with the user.\n *\n * @param variable - The configuration variable or string to resolve.\n *\n * @param next - A function to call if the hook implementation decides to not handle the resolution of this variable.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -504,16 +504,7 @@
                 },
                 {
                   "kind": "Content",
-                  "text": "(variable: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "ConfigurationVariable",
-                  "canonicalReference": "@nomicfoundation/prototype!ConfigurationVariable:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": ", interruptions: "
+                  "text": "(interruptions: "
                 },
                 {
                   "kind": "Reference",
@@ -522,7 +513,7 @@
                 },
                 {
                   "kind": "Content",
-                  "text": ", next: (v: "
+                  "text": ", variable: "
                 },
                 {
                   "kind": "Reference",
@@ -531,12 +522,21 @@
                 },
                 {
                   "kind": "Content",
-                  "text": ", i: "
+                  "text": ", next: (i: "
                 },
                 {
                   "kind": "Reference",
                   "text": "UserInterruptionManager",
                   "canonicalReference": "@nomicfoundation/prototype!UserInterruptionManager:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", v: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "ConfigurationVariable",
+                  "canonicalReference": "@nomicfoundation/prototype!ConfigurationVariable:interface"
                 },
                 {
                   "kind": "Content",
@@ -1837,12 +1837,12 @@
             },
             {
               "kind": "MethodSignature",
-              "canonicalReference": "@nomicfoundation/prototype!HookManager#runHooksInParallel:member(1)",
-              "docComment": "/**\n * Runs all the hooks in parallel.\n *\n * @param hookCategoryName - The name of the category of the hook to run.\n *\n * @param hookName - The name of the hook to run.\n *\n * @param params - The params to pass to the hooks.\n */\n",
+              "canonicalReference": "@nomicfoundation/prototype!HookManager#runHooksInOrder:member(1)",
+              "docComment": "/**\n * Runs all the hooks in the same order that `getHooks` returns them.\n *\n * @param hookCategoryName - The name of the category of the hook to run.\n *\n * @param hookName - The name of the hook to run.\n *\n * @param params - The params to pass to the hooks.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "runHooksInParallel<HookCategoryNameT extends "
+                  "text": "runHooksInOrder<HookCategoryNameT extends "
                 },
                 {
                   "kind": "Content",
@@ -2025,7 +2025,7 @@
                   }
                 }
               ],
-              "name": "runHooksInParallel"
+              "name": "runHooksInOrder"
             },
             {
               "kind": "MethodSignature",
