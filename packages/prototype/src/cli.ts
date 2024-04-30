@@ -41,7 +41,6 @@ async function ignitionMockTask(hre: HardhatRuntimeEnvironment) {
   // This code simulates asking the user for a private key in the
   // middle of the execution. It could be from a provider, for example.
   setTimeout(async () => {
-    console.log(hre.config);
     // The private key is lazily fetched, so it uses a user interruption
     // to ask for it.
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

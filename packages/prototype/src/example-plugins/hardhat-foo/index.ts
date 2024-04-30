@@ -9,10 +9,5 @@ export default {
       "./hooks/configurationVariables.js",
       import.meta.url,
     ).toString(),
-    hre: async () => ({
-      created: async (_context, _hre) => {
-        console.log("HRE created");
-      },
-    }),
   },
 } satisfies HardhatPlugin;

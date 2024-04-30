@@ -25,12 +25,15 @@ export class HardhatRuntimeEnvironmentImplementation
 
     // Topological sort of plugins
     const sortedPlugins = reverseTopologicalSort([
+      // global argumetns plugin
+      // build system plugin
+      // networks plugin
+      // task runner plugin
       builtinFunctionality,
       ...(clonedConfig.plugins ?? []),
     ]);
 
     const hooks = new HookManagerImplementation(sortedPlugins);
-    const interruptions = new UserInterruptionManagerImplementation(hooks);
 
     // extend user config:
     const userConfig = await runUserConfigExtensions(hooks, clonedConfig);
@@ -62,6 +65,8 @@ export class HardhatRuntimeEnvironmentImplementation
 
     // Set the HookContext in the hook manager so that non-config hooks can
     // use it
+
+    const interruptions = new UserInterruptionManagerImplementation(hooks);
 
     const hookContext: HookContext = {
       hooks,

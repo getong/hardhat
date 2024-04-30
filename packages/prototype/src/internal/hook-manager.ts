@@ -91,10 +91,6 @@ export class HookManagerImplementation implements HookManager {
     params: InitialChainedHookParams<HookCategoryNameT, HookT>,
     defaultImplementation: LastParameter<HookT>,
   ): Promise<Awaited<Return<HardhatHooks[HookCategoryNameT][HookNameT]>>> {
-    console.log(
-      `Running hook chain ${hookCategoryName}.${hookName.toString()}`,
-    );
-
     const hooks = await this.getHooks(hookCategoryName, hookName);
 
     let hookParams: Parameters<typeof defaultImplementation>;
@@ -111,14 +107,10 @@ export class HookManagerImplementation implements HookManager {
 
     let index = hooks.length - 1;
     const next = async (...nextParams: typeof hookParams) => {
-      console.log(`\t next#${index}`);
-
       const result =
         index >= 0
           ? await (hooks[index--] as any)(...nextParams, next)
           : await defaultImplementation(...nextParams);
-
-      console.log(`\t result#${index}`, result);
 
       return result;
     };
@@ -192,6 +184,14 @@ export class HookManagerImplementation implements HookManager {
       Partial<HardhatHooks[HookCategoryNameT]> | undefined
     > = await Promise.all(
       this.#plugins.map(async (plugin) => {
+        const existingCategory = this.#staticHookCategories
+          .get(plugin.id)
+          ?.get(hookCategoryName);
+
+        if (existingCategory !== undefined) {
+          return existingCategory as Partial<HardhatHooks[HookCategoryNameT]>;
+        }
+
         const hookCategoryFactory = plugin.hooks?.[hookCategoryName];
 
         if (hookCategoryFactory === undefined) {
@@ -203,26 +203,35 @@ export class HookManagerImplementation implements HookManager {
           this.#validatedPlugins.add(plugin.id);
         }
 
+        let hookCategory: Partial<HardhatHooks[HookCategoryNameT]>;
+
         if (typeof hookCategoryFactory === "string") {
-          const loadedHookCategory = await this.#loadHookCategory(
+          hookCategory = await this.#loadHookCategoryFactory(
             plugin.id,
             hookCategoryName,
             hookCategoryFactory,
           );
+        } else {
+          hookCategory = await hookCategoryFactory();
 
-          return loadedHookCategory as Partial<HardhatHooks[HookCategoryNameT]>;
+          // We don't print warning of inline hooks for the builtin functionality
+          if (plugin.id !== builtinFunctionality.id) {
+            console.warn(
+              `WARNING: Inline hooks found in plugin "${plugin.id}", category "${hookCategoryName}". User paths in production.`,
+            );
+          }
         }
 
-        // We don't print warning of inline hooks for the builtin functionality
-        if (plugin.id !== builtinFunctionality.id) {
-          console.warn(
-            `WARNING: Inline hooks found in plugin "${plugin.id}", category "${hookCategoryName}". User paths in production.`,
-          );
+        if (!this.#staticHookCategories.has(plugin.id)) {
+          this.#staticHookCategories.set(plugin.id, new Map());
         }
 
-        const category = await hookCategoryFactory();
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- Defined right above
+        this.#staticHookCategories
+          .get(plugin.id)!
+          .set(hookCategoryName, hookCategory);
 
-        return category as Partial<HardhatHooks[HookCategoryNameT]>;
+        return hookCategory;
       }),
     );
 
@@ -236,40 +245,29 @@ export class HookManagerImplementation implements HookManager {
     });
   }
 
-  async #loadHookCategory<HookCategoryNameT extends keyof HardhatHooks>(
+  async #loadHookCategoryFactory<HookCategoryNameT extends keyof HardhatHooks>(
     pluginId: string,
     hookCategoryName: HookCategoryNameT,
     path: string,
   ): Promise<Partial<HardhatHooks[HookCategoryNameT]>> {
-    if (!this.#staticHookCategories.has(pluginId)) {
-      this.#staticHookCategories.set(pluginId, new Map());
+    const mod = await import(path);
+
+    const factory = mod.default;
+
+    // TODO: Assert that the factory is a function
+    if (typeof factory !== "function") {
+      throw new Error(
+        `Plugin ${pluginId} doesn't export a hook factory for category ${hookCategoryName} in ${path}`,
+      );
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const pluginCategories = this.#staticHookCategories.get(pluginId)!;
+    const category = await factory();
 
-    let category = pluginCategories.get(hookCategoryName) as
-      | Partial<HardhatHooks[HookCategoryNameT]>
-      | undefined;
-
-    if (category === undefined) {
-      const mod = await import(path);
-
-      const factory = mod.default;
-
-      // TODO: Assert that the factory is a function
-      if (typeof factory !== "function") {
-        throw new Error(`Source ${path} doesn't export a hooks factory`);
-      }
-
-      category = await factory();
-
-      // TODO: Assert that category is not undefined and it's an object
-      if (typeof category !== "object" || category === null) {
-        throw new Error("Invalid category");
-      }
-
-      pluginCategories.set(hookCategoryName, category);
+    // TODO: Assert that category is not undefined and it's an object
+    if (typeof category !== "object" || category === null) {
+      throw new Error(
+        `Plugin ${pluginId} doesn't export a valid factory for category ${hookCategoryName} in ${path}, it didn't return an object`,
+      );
     }
 
     return category;

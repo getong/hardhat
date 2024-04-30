@@ -41,8 +41,6 @@ export default {
           version,
         };
 
-        console.log("here");
-
         if (userConfig.privateKey !== undefined) {
           resolvedConfig.privateKey = resolveConfigurationVariable(
             userConfig.privateKey,
