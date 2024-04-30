@@ -20,3 +20,4 @@ EOF
 pnpm tsc || rm src/api-extractor-entrypoint.ts
 pnpm api-extractor run || rm src/api-extractor-entrypoint.ts
 rm src/api-extractor-entrypoint.ts
+rm -rf temp

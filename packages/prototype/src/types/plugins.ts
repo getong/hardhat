@@ -30,19 +30,33 @@ export interface HardhatPlugin {
   npmPackage?: string;
 
   /**
-   * An object with the different hooks that this plugin defines.
+   * An object with the different hook handlers that this plugin defines.
    *
-   * Each entry in this object is a a category of hooks, for example `"config"`
-   * or `"userInterruption"`.
+   * The complete list of hooks is defined in the type `HardhatHooks`, which the
+   * plugins that you depend on can extend.
    *
-   * You can define each category as an object with keys that are the hook
-   * names, and values that are the hook implementations, but this way of
-   * defining hooks is only for development.
+   * There's an entry for each hook category, that is, an entry for every entry
+   * in `HardhatHooks`.
    *
-   * In production, you must use a `string` with the path to a file that
-   * exports as `default` an object with the hook implementations.
+   * Each entry defines a `HookHandlerCategoryFactory`, which is an async
+   * function that returns a `HookHandlerCategory` object.
+   *
+   * Each `HookHandlerCategoryFactory` is called lazily, when needed, and at
+   * most once per instance of the `HardhatRuntimeEnvironment`.
+   *
+   * These object contain handlers for one or more hooks in that category.
+   *
+   * For example, the entry `config` can defined a `HookHandlerCategoryFactory`
+   * returning an object with a handler for the `extendUserConfig` hook.
+   *
+   * You can define each factory in two ways:
+   *  - As an inline function.
+   *  - As a string with the path to a file that exports the factory as `default`.
+   *
+   * The first option should only be used for development. You MUST use the second
+   * option for production.
    */
-  hooks?: LazyLoadedHookCategoryFactories;
+  hookHandlers?: HookHandlerCategoryFactories;
 
   /**
    * An arary of plugins that this plugins depends on.
@@ -51,15 +65,25 @@ export interface HardhatPlugin {
 }
 
 /**
- * An object with the factories for the different hook categories that a plugin can define.
+ * An object with the factories for the different hook handler categories that a plugin can define.
  *
- * @see HardhatPlugin#hooks
+ * @see HardhatPlugin#hookHandlers
  */
-export type LazyLoadedHookCategoryFactories = {
+export type HookHandlerCategoryFactories = {
   [HookCategoryNameT in keyof HardhatHooks]?:
-    | HookCategoryFactory<HookCategoryNameT>
+    | HookHandlerCategoryFactory<HookCategoryNameT>
     | string;
 };
 
-export type HookCategoryFactory<CategoryNameT extends keyof HardhatHooks> =
-  () => Promise<Partial<HardhatHooks[CategoryNameT]>>;
+/**
+ * A function that returns a `HookHandlerCategory` object, containing handlers
+ * for one or more hooks of a certain category.
+ *
+ * A factory is called lazily, when needed, and at most once per instance of the
+ * `HardhatRuntimeEnvironment`.
+ *
+ * @see HardhatPlugin#hookHandlers
+ */
+export type HookHandlerCategoryFactory<
+  CategoryNameT extends keyof HardhatHooks,
+> = () => Promise<Partial<HardhatHooks[CategoryNameT]>>;

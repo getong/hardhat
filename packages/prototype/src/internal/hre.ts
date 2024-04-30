@@ -83,7 +83,7 @@ export class HardhatRuntimeEnvironmentImplementation
       interruptions,
     );
 
-    await hooks.runHooksInOrder("hre", "created", [hre]);
+    await hooks.runHandlersInOrder("hre", "created", [hre]);
 
     return hre;
   }
@@ -100,7 +100,7 @@ async function runUserConfigExtensions(
   hooks: HookManager,
   config: HardhatUserConfig,
 ): Promise<HardhatUserConfig> {
-  return hooks.runHooksChain(
+  return hooks.runHandlerChain(
     "config",
     "extendUserConfig",
     [config],
@@ -114,9 +114,11 @@ async function validateUserConfig(
   hooks: HookManager,
   config: HardhatUserConfig,
 ): Promise<HardhatUserConfigValidationError[]> {
-  const results = await hooks.runHooksInOrder("config", "validateUserConfig", [
-    config,
-  ]);
+  const results = await hooks.runHandlersInOrder(
+    "config",
+    "validateUserConfig",
+    [config],
+  );
 
   return results.flat(1);
 }
@@ -130,7 +132,7 @@ async function resolveUserConfig(
     plugins: sortedPlugins,
   } as HardhatConfig;
 
-  return hooks.runHooksChain(
+  return hooks.runHandlerChain(
     "config",
     "resolveUserConfig",
     [

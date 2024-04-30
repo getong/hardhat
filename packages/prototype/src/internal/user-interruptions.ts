@@ -17,7 +17,7 @@ export class UserInterruptionManagerImplementation
     message: string,
   ): Promise<void> {
     return this.#mutex.excluiveRun(async () => {
-      return this.#hooks.runHooksChain(
+      return this.#hooks.runHandlerChain(
         "userInterruptions",
         "displayMessage",
         [interruptor, message],
@@ -31,7 +31,7 @@ export class UserInterruptionManagerImplementation
     inputDescription: string,
   ): Promise<string> {
     return this.#mutex.excluiveRun(async () => {
-      return this.#hooks.runHooksChain(
+      return this.#hooks.runHandlerChain(
         "userInterruptions",
         "requestInput",
         [interruptor, inputDescription],
@@ -45,7 +45,7 @@ export class UserInterruptionManagerImplementation
     inputDescription: string,
   ): Promise<string> {
     return this.#mutex.excluiveRun(async () => {
-      return this.#hooks.runHooksChain(
+      return this.#hooks.runHandlerChain(
         "userInterruptions",
         "requestSecretInput",
         [interruptor, inputDescription],

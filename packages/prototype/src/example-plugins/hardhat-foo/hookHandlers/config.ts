@@ -11,7 +11,7 @@ export default async () => {
     foo: z.optional(fooUserConfigType),
   });
 
-  const hooks: Partial<ConfigHooks> = {
+  const handlers: Partial<ConfigHooks> = {
     validateUserConfig: async (userConfig) => {
       return validateUserConfigZodType(userConfig, hardhatUserConfig);
     },
@@ -37,5 +37,5 @@ export default async () => {
     },
   };
 
-  return hooks;
+  return handlers;
 };

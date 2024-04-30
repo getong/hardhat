@@ -1,7 +1,7 @@
 import { ConfigurationVariableHooks } from "../../../types/hooks.js";
 
 export default async () => {
-  const hooks: Partial<ConfigurationVariableHooks> = {
+  const handlers: Partial<ConfigurationVariableHooks> = {
     resolve: async (context, variable, _next) => {
       return context.interruptions.requestSecretInput(
         "Plugin that overrides the config vars resolution",
@@ -10,5 +10,5 @@ export default async () => {
     },
   };
 
-  return hooks;
+  return handlers;
 };

@@ -15,7 +15,8 @@ import {
 } from "./utils.js";
 
 /**
- * The context that is passed to hook implementations.
+ * The context that is passed to hook handlers, except for those in the "config"
+ * category.
  */
 export interface HookContext {
   readonly hooks: HookManager;
@@ -24,7 +25,10 @@ export interface HookContext {
 }
 
 /**
- * The different hooks that a plugin can define.
+ * The different hooks that a plugin can define handlers for.
+ *
+ * Each of the entries in this interface is a category of hooks, and each of
+ * those categories is an object with the hooks in that category.
  */
 export interface HardhatHooks {
   config: ConfigHooks;
@@ -37,21 +41,20 @@ export interface HardhatHooks {
  */
 export interface ConfigHooks {
   /**
-   * Provide an implementation of this hook to extend the user's config,
-   * before any validation or resolution is done.
+   * Provide a handler for this hook to extend the user's config, before any
+   * validation or resolution is done.
    *
    * @param config - The user's config.
-   * @param next - A function to call to the next hook.
+   * @param next - A function to call to the next handler for this hook.
    * @returns The extended config.
    */
   extendUserConfig: (
     config: HardhatUserConfig,
-    next: (c: HardhatUserConfig) => Promise<HardhatUserConfig>,
+    next: (nextConfig: HardhatUserConfig) => Promise<HardhatUserConfig>,
   ) => Promise<HardhatUserConfig>;
 
   /**
-   * Provide an implementation of this hook to run validations on the user's
-   * config.
+   * Provide a handler for this hook to run validations on the user's config.
    *
    * @param config - The user's config.
    * @returns An array of validation errors.
@@ -61,25 +64,25 @@ export interface ConfigHooks {
   ) => Promise<HardhatUserConfigValidationError[]>;
 
   /**
-   * Provide an implementation of this hook to resolve parts of the user's
-   * config into the final HardhatConfig.
+   * Provide a handler for this hook to resolve parts of the user's config into
+   * the final HardhatConfig.
    *
-   * To use this hook, plugins are encouraged to call `next(config)` first,
-   * and construct a resolved config based on its result. Note that While
-   * that result is typed as `HardhatConfig`, it may actually be incomplete, as
-   * other plugins may not have resolved their parts of the config yet.
+   * To use this hook, plugins are encouraged to call `next(config)` first, and
+   * construct a resolved config based on its result. Note that while that
+   * result is typed as `HardhatConfig`, it may actually be incomplete, as other
+   * plugins may not have resolved their parts of the config yet.
    *
-   * @param config - The user's config.
-   * @param next - A function to call to the next hook.
+   * @param userConfig - The user's config.
+   * @param next - A function to call to the next handler for this hook.
    * @returns The resolved config.
    */
   resolveUserConfig: (
-    config: HardhatUserConfig,
+    userConfig: HardhatUserConfig,
     resolveConfigurationVariable: (
       variableOrString: ConfigurationVariable | string,
     ) => ResolvedConfigurationVariable,
     next: (
-      userConfig: HardhatUserConfig,
+      nextUserConfig: HardhatUserConfig,
       nextResolveConfigurationVariable: (
         variableOrString: ConfigurationVariable | string,
       ) => ResolvedConfigurationVariable,
@@ -88,26 +91,36 @@ export interface ConfigHooks {
 }
 
 /**
- * A HardhatUser validation error.
+ * A `HardhatUserConfig` validation error.
  */
 export interface HardhatUserConfigValidationError {
+  /**
+   * The path from the config object to the value that originated this
+   * validation error.
+   *
+   * For example, if `config.networks.localhost.url` is invalid, this array
+   * would be `["networks", "localhost", "url"]`.
+   */
   path: Array<string | number>;
+
+  /**
+   * The error message.
+   */
   message: string;
 }
 
 /**
- * Configuration variable-related hooks.
+ * ConfigurationVariable-related hooks.
  */
 export interface ConfigurationVariableHooks {
   /**
-   * Provide an implementation of this hook to customize how to resolve
-   * a configuration variable into its actual value.
+   * Provide a handler for this hook to customize how to resolve a configuration
+   * variable into its actual value.
    *
-   * @param interruptions - A `UserInterruptionManager` that can be used to
-   *  interact with the user.
+   * @param context - The hook context.
    * @param variable - The configuration variable or string to resolve.
-   * @param next - A function to call if the hook implementation decides to not
-   *  handle the resolution of this variable.
+   * @param next - A function to call if the handler decides to not handle the
+   *  resolution of this variable.
    */
   resolve: (
     context: HookContext,
@@ -124,17 +137,18 @@ export interface ConfigurationVariableHooks {
  */
 export interface UserInterruptionHooks {
   /**
-   * Provide an implementation of this hook to customize how the
+   * Provide a handler for this hook to customize how the
    * `UserInterruptionManager` displays messages to the user.
-   *
    *
    * @see UserInterruptionManager#displayMessage to understand when the returned
    *  promise should be resolved.
+   *
+   * @param context - The hook context.
    * @param interruptor - A name or description of the module trying to display
    *  the message.
    * @param message - The message to display.
-   * @param next - A function to call if the hook implementation decides to not
-   *  handle the message.
+   * @param next - A function to call if the handler decides to not handle the
+   *  message.
    */
   displayMessage: (
     context: HookContext,
@@ -148,18 +162,19 @@ export interface UserInterruptionHooks {
   ) => Promise<void>;
 
   /**
-   * Provide an implementation of this hook to customize how the
+   * Provide a handler for this hook to customize how the
    * `UserInterruptionManager` requests input from the user.
    *
+   * @param context - The hook context.
    * @param interruptor - A name or description of the module trying to request
    *  input form the user.
    * @param inputDescription - A description of the input that is being
    *  requested.
-   * @param next - A function to call if the hook implementation decides to not
-   *  handle the input request.
+   * @param next - A function to call if the handler decides to not handle the
+   *  input request.
    */
   requestInput: (
-    nextContext: HookContext,
+    context: HookContext,
     interruptor: string,
     inputDescription: string,
     next: (
@@ -170,21 +185,22 @@ export interface UserInterruptionHooks {
   ) => Promise<string>;
 
   /**
-   * Provide an implementation of this hook to customize how the
+   * Provide a handler for this hook to customize how the
    * `UserInterruptionManager` requests a secret input from the user.
    *
-   * Note that your implementation of this hook should take care of to
-   * not display the user's input in the console, and not leak it in any way.
+   * Note that handlers for this hook should take care of to not display the
+   * user's input in the terminal, and not leak it in any way.
    *
+   * @param context - The hook context.
    * @param interruptor - A name or description of the module trying to request
    *  input form the user.
    * @param inputDescription - A description of the input that is being
    *  requested.
-   * @param next - A function to call if the hook implementation decides to not
+   * @param next - A function to call if the handler decides to not
    *  handle the input request.
    */
   requestSecretInput: (
-    nextContext: HookContext,
+    context: HookContext,
     interruptor: string,
     inputDescription: string,
     next: (
@@ -196,18 +212,29 @@ export interface UserInterruptionHooks {
 }
 
 /**
- * An interface with utilities to interact with hooks.
+ * An interface with utilities to interact with hooks and their handlers.
  *
- * This interface provides methods register/unregister hooks, fetching hooks
- * in the correct order, and run them in the most common execution patterns.
+ * This interface provides methods fetch and run hook handlers, as well as
+ * registering and unregistering dynamic ones.
+ *
+ * Using this `HookManager` you can run a hook's handlers in a few different
+ * common execution patterns:
+ *  - As a chain of responsibility, where each handler can optionally call the
+ *    next one.
+ *  - In order, where all handlers are called in the order that `getHooks`
+ *    returns them.
  */
 export interface HookManager {
   /**
-   * Returns an array of hooks in the right execution order. This means the
-   * plugin hooks first, in the resolved plugins' order, followed by the
-   * dynamically registerd hooks in registration order.
+   * Returns an array with the existing handlers for a hook, in priority order.
+   *
+   * The priority is defined like this:
+   *  - Dynamically registered handlers come first, in the reverse order they
+   *   were registered.
+   * - Plugin handlers come last, in the same reverse of the resolved plugins
+   *  list, as seen in `HardhatConfig#plugins`.
    */
-  getHooks<
+  getHandlers<
     HookCategoryNameT extends keyof HardhatHooks,
     HookNameT extends keyof HardhatHooks[HookCategoryNameT],
   >(
@@ -216,39 +243,46 @@ export interface HookManager {
   ): Promise<Array<HardhatHooks[HookCategoryNameT][HookNameT]>>;
 
   /**
-   * Registers hooks in a category.
+   * Registers handlers for a category of hooks.
    */
-  registerHooks<HookCategoryNameT extends keyof HardhatHooks>(
+  registerHandlers<HookCategoryNameT extends keyof HardhatHooks>(
     hookCategoryName: HookCategoryNameT,
     hookCategory: Partial<HardhatHooks[HookCategoryNameT]>,
   ): void;
 
   /**
-   * Removes previously registered hooks.
+   * Removes previously registered handlers.
    */
-  unregisterHooks<HookCategoryNameT extends keyof HardhatHooks>(
+  unregisterHandlers<HookCategoryNameT extends keyof HardhatHooks>(
     hookCategoryName: HookCategoryNameT,
     hookCategory: Partial<HardhatHooks[HookCategoryNameT]>,
   ): void;
 
   /**
-   * Runs hooks in a chained fashion, where the last hook (as returned by getHooks)
-   * is called first, and can optionally call the next hook in the chain.
+   * Runs the existing handlers of a hook in a chained fashion.
    *
-   * For a hook to work with this method, it should look like
-   *  `(arg1: Type1, ..., argN: TypeN, next: (a1: Type1, ..., aN: TypeN) => Promise<ReturnType>) => Promise<ReturnType>`
+   * This chain has the same order than the one returned by `getHooks`, plus the
+   * default handler which is added at the end.
    *
-   * Calling `next` will invoke the next hook in the chain. Note that `next`
-   * must only be called once.
+   * The first handler is called with `initialParams`, and then it can call
+   * `next` to call the next handler in the chain.
    *
-   * @param hookCategoryName - The name of the category of the hook to run.
-   * @param hookName - The name of the hook to run.
-   * @param initialParams - The params to pass to the first hook in the chain.
-   * @param defaultImplementation - The last function to execute in the chain. This is also
-   *   called if there are no hooks.
-   * @returns The result of executing the chained hooks
+   * For a hook to work with this method, it should look like this:
+   *
+   * `(arg1: Type1, ..., argN: TypeN, n ext: (a1: Type1, ..., aN: TypeN) => Promise<ReturnType>) => Promise<ReturnType>`
+   *
+   * Note that `next` MUST NOT be called more than once in any handler.
+   *
+   * @param hookCategoryName - The name of the category of the hook whose
+   *  handlers should be run.
+   * @param hookName - The name of the hook whose handlers should be run.
+   * @param initialParams - The params to pass to the first handler that is run.
+   * @param defaultHandler - The last handler in the chain. This can be thought
+   *  as the behavior that this execution should have in the absense of any
+   *  handler.
+   * @returns The result of executing the chained handlers.
    */
-  runHooksChain<
+  runHandlerChain<
     HookCategoryNameT extends keyof HardhatHooks,
     HookNameT extends keyof HardhatHooks[HookCategoryNameT],
     HookT extends ChainedHook<HardhatHooks[HookCategoryNameT][HookNameT]>,
@@ -256,17 +290,19 @@ export interface HookManager {
     hookCategoryName: HookCategoryNameT,
     hookName: HookNameT,
     initialParams: InitialChainedHookParams<HookCategoryNameT, HookT>,
-    defaultImplementation: LastParameter<HookT>,
+    defaultHandler: LastParameter<HookT>,
   ): Promise<Awaited<Return<HookT>>>;
 
   /**
-   * Runs all the hooks in the same order that `getHooks` returns them.
+   * Runs all the handlers for a hook in the same order that `getHandlers`
+   * returns them.
    *
-   * @param hookCategoryName - The name of the category of the hook to run.
+   * @param hookCategoryName - The name of the category of the hook whose
+   *  handlers should be run.
    * @param hookName - The name of the hook to run.
    * @param params - The params to pass to the hooks.
    */
-  runHooksInOrder<
+  runHandlersInOrder<
     HookCategoryNameT extends keyof HardhatHooks,
     HookNameT extends keyof HardhatHooks[HookCategoryNameT],
     HookT extends HardhatHooks[HookCategoryNameT][HookNameT],

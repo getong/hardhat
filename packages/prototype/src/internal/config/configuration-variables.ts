@@ -23,7 +23,7 @@ export class ResolvedConfigurationVariableImplementation
       return this.#variable;
     }
 
-    return this.#hooks.runHooksChain(
+    return this.#hooks.runHandlerChain(
       "configurationVariables",
       "resolve",
       [this.#variable],

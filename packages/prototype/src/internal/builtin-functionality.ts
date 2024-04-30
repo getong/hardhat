@@ -16,7 +16,7 @@ const HardhatUserConfig = z.object({
 
 export default {
   id: "builtin-functionality",
-  hooks: {
+  hookHandlers: {
     config: async () => ({
       validateUserConfig: async (config) => {
         return validateUserConfigZodType(config, HardhatUserConfig);

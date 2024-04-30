@@ -3,10 +3,10 @@ import "./type-extensions.js";
 
 export default {
   id: "hardhat-foo",
-  hooks: {
-    config: new URL("./hooks/config.js", import.meta.url).toString(),
+  hookHandlers: {
+    config: new URL("./hookHandlers/config.js", import.meta.url).toString(),
     configurationVariables: new URL(
-      "./hooks/configurationVariables.js",
+      "./hookHandlers/configurationVariables.js",
       import.meta.url,
     ).toString(),
   },

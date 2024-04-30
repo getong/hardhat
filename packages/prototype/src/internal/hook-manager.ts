@@ -12,31 +12,43 @@ import builtinFunctionality from "./builtin-functionality.js";
 import { validatePlugin } from "./plugins/plugin-validation.js";
 
 export class HookManagerImplementation implements HookManager {
-  readonly #plugins: HardhatPlugin[];
-
   readonly #validatedPlugins = new Set<string>();
 
+  readonly #pluginsInReverseOrder: HardhatPlugin[];
+
+  /**
+   * Initially `undefined` to be able to run the config hooks during
+   * initialization.
+   */
   #context: HookContext | undefined;
 
-  readonly #staticHookCategories: Map<
+  /**
+   * The intialized handler categories for each plugin.
+   */
+  readonly #staticHookHandlerCategories: Map<
     string,
     Map<keyof HardhatHooks, Partial<HardhatHooks[keyof HardhatHooks]>>
   > = new Map();
 
-  readonly #dynamicHookCategories: Map<
+  /**
+   * A map of the dynamically registered handler categories.
+   *
+   * Each array is a list of categories, in reverse order of registration.
+   */
+  readonly #dynamicHookHandlerCategories: Map<
     keyof HardhatHooks,
     Array<Partial<HardhatHooks[keyof HardhatHooks]>>
   > = new Map();
 
   constructor(plugins: HardhatPlugin[]) {
-    this.#plugins = plugins;
+    this.#pluginsInReverseOrder = plugins.toReversed();
   }
 
   public setContext(context: HookContext): void {
     this.#context = context;
   }
 
-  public async getHooks<
+  public async getHandlers<
     HookCategoryNameT extends keyof HardhatHooks,
     HookNameT extends keyof HardhatHooks[HookCategoryNameT],
   >(
@@ -50,38 +62,40 @@ export class HookManagerImplementation implements HookManager {
       hookName,
     );
 
-    return [...pluginHooks, ...dynamicHooks];
+    const r = [...dynamicHooks, ...pluginHooks];
+
+    return r;
   }
 
-  public registerHooks<HookCategoryNameT extends keyof HardhatHooks>(
+  public registerHandlers<HookCategoryNameT extends keyof HardhatHooks>(
     hookCategoryName: HookCategoryNameT,
-    hookCategory: Partial<HardhatHooks[HookCategoryNameT]>,
+    hookHandlerCategory: Partial<HardhatHooks[HookCategoryNameT]>,
   ): void {
-    let categories = this.#dynamicHookCategories.get(hookCategoryName);
+    let categories = this.#dynamicHookHandlerCategories.get(hookCategoryName);
     if (categories === undefined) {
       categories = [];
-      this.#dynamicHookCategories.set(hookCategoryName, categories);
+      this.#dynamicHookHandlerCategories.set(hookCategoryName, categories);
     }
 
-    categories.push(hookCategory);
+    categories.unshift(hookHandlerCategory);
   }
 
-  public unregisterHooks<HookCategoryNameT extends keyof HardhatHooks>(
+  public unregisterHandlers<HookCategoryNameT extends keyof HardhatHooks>(
     hookCategoryName: HookCategoryNameT,
-    hookCategory: Partial<HardhatHooks[HookCategoryNameT]>,
+    hookHandlerCategory: Partial<HardhatHooks[HookCategoryNameT]>,
   ): void {
-    const categories = this.#dynamicHookCategories.get(hookCategoryName);
+    const categories = this.#dynamicHookHandlerCategories.get(hookCategoryName);
     if (categories === undefined) {
       return;
     }
 
-    this.#dynamicHookCategories.set(
+    this.#dynamicHookHandlerCategories.set(
       hookCategoryName,
-      categories.filter((c) => c !== hookCategory),
+      categories.filter((c) => c !== hookHandlerCategory),
     );
   }
 
-  public async runHooksChain<
+  public async runHandlerChain<
     HookCategoryNameT extends keyof HardhatHooks,
     HookNameT extends keyof HardhatHooks[HookCategoryNameT],
     HookT extends ChainedHook<HardhatHooks[HookCategoryNameT][HookNameT]>,
@@ -91,34 +105,35 @@ export class HookManagerImplementation implements HookManager {
     params: InitialChainedHookParams<HookCategoryNameT, HookT>,
     defaultImplementation: LastParameter<HookT>,
   ): Promise<Awaited<Return<HardhatHooks[HookCategoryNameT][HookNameT]>>> {
-    const hooks = await this.getHooks(hookCategoryName, hookName);
+    const handlers = await this.getHandlers(hookCategoryName, hookName);
 
-    let hookParams: Parameters<typeof defaultImplementation>;
+    let handlerParams: Parameters<typeof defaultImplementation>;
     if (hookCategoryName !== "config") {
       // TODO: assert that this.#context is not undefinded
       if (this.#context === undefined) {
         throw new Error(`Context must be set before running non-config hooks`);
       }
 
-      hookParams = [this.#context, ...params] as any;
+      handlerParams = [this.#context, ...params] as any;
     } else {
-      hookParams = params as any;
+      handlerParams = params as any;
     }
 
-    let index = hooks.length - 1;
-    const next = async (...nextParams: typeof hookParams) => {
+    const numberOfHandlers = handlers.length;
+    let index = 0;
+    const next = async (...nextParams: typeof handlerParams) => {
       const result =
-        index >= 0
-          ? await (hooks[index--] as any)(...nextParams, next)
+        index < numberOfHandlers
+          ? await (handlers[index++] as any)(...nextParams, next)
           : await defaultImplementation(...nextParams);
 
       return result;
     };
 
-    return next(...hookParams);
+    return next(...handlerParams);
   }
 
-  public async runHooksInOrder<
+  public async runHandlersInOrder<
     HookCategoryNameT extends keyof HardhatHooks,
     HookNameT extends keyof HardhatHooks[HookCategoryNameT],
     HookT extends HardhatHooks[HookCategoryNameT][HookNameT],
@@ -129,23 +144,23 @@ export class HookManagerImplementation implements HookManager {
   ): Promise<
     Array<Awaited<Return<HardhatHooks[HookCategoryNameT][HookNameT]>>>
   > {
-    const hooks = await this.getHooks(hookCategoryName, hookName);
+    const handlers = await this.getHandlers(hookCategoryName, hookName);
 
-    let hookParams: any;
+    let handlerParams: any;
     if (hookCategoryName !== "config") {
       // TODO: assert that this.#context is not undefinded
       if (this.#context === undefined) {
         throw new Error(`Context must be set before running non-config hooks`);
       }
 
-      hookParams = [this.#context, ...params];
+      handlerParams = [this.#context, ...params];
     } else {
-      hookParams = params;
+      handlerParams = params;
     }
 
     const result = [];
-    for (const hook of hooks) {
-      result.push(await (hook as any)(...hookParams));
+    for (const handler of handlers) {
+      result.push(await (handler as any)(...handlerParams));
     }
 
     return result;
@@ -158,15 +173,15 @@ export class HookManagerImplementation implements HookManager {
     hookCategoryName: HookCategoryNameT,
     hookName: HookNameT,
   ): Promise<Array<HardhatHooks[HookCategoryNameT][HookNameT]>> {
-    const hookCategories = this.#dynamicHookCategories.get(hookCategoryName) as
-      | Array<Partial<HardhatHooks[HookCategoryNameT]>>
-      | undefined;
+    const categories = this.#dynamicHookHandlerCategories.get(
+      hookCategoryName,
+    ) as Array<Partial<HardhatHooks[HookCategoryNameT]>> | undefined;
 
-    if (hookCategories === undefined) {
+    if (categories === undefined) {
       return [];
     }
 
-    return hookCategories.flatMap((hookCategory) => {
+    return categories.flatMap((hookCategory) => {
       return (hookCategory[hookName] ?? []) as Array<
         HardhatHooks[HookCategoryNameT][HookNameT]
       >;
@@ -180,11 +195,11 @@ export class HookManagerImplementation implements HookManager {
     hookCategoryName: HookCategoryNameT,
     hookName: HookNameT,
   ): Promise<Array<HardhatHooks[HookCategoryNameT][HookNameT]>> {
-    const hookCategories: Array<
+    const categories: Array<
       Partial<HardhatHooks[HookCategoryNameT]> | undefined
     > = await Promise.all(
-      this.#plugins.map(async (plugin) => {
-        const existingCategory = this.#staticHookCategories
+      this.#pluginsInReverseOrder.map(async (plugin) => {
+        const existingCategory = this.#staticHookHandlerCategories
           .get(plugin.id)
           ?.get(hookCategoryName);
 
@@ -192,7 +207,7 @@ export class HookManagerImplementation implements HookManager {
           return existingCategory as Partial<HardhatHooks[HookCategoryNameT]>;
         }
 
-        const hookCategoryFactory = plugin.hooks?.[hookCategoryName];
+        const hookCategoryFactory = plugin.hookHandlers?.[hookCategoryName];
 
         if (hookCategoryFactory === undefined) {
           return;
@@ -222,12 +237,12 @@ export class HookManagerImplementation implements HookManager {
           }
         }
 
-        if (!this.#staticHookCategories.has(plugin.id)) {
-          this.#staticHookCategories.set(plugin.id, new Map());
+        if (!this.#staticHookHandlerCategories.has(plugin.id)) {
+          this.#staticHookHandlerCategories.set(plugin.id, new Map());
         }
 
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- Defined right above
-        this.#staticHookCategories
+        this.#staticHookHandlerCategories
           .get(plugin.id)!
           .set(hookCategoryName, hookCategory);
 
@@ -235,13 +250,13 @@ export class HookManagerImplementation implements HookManager {
       }),
     );
 
-    return hookCategories.flatMap((hookCategory) => {
-      const hook = hookCategory?.[hookName];
-      if (hook === undefined) {
+    return categories.flatMap((category) => {
+      const handler = category?.[hookName];
+      if (handler === undefined) {
         return [];
       }
 
-      return hook as HardhatHooks[HookCategoryNameT][HookNameT];
+      return handler as HardhatHooks[HookCategoryNameT][HookNameT];
     });
   }
 
