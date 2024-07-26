@@ -1,5 +1,15 @@
 # hardhat
 
+## 2.22.7
+
+### Patch Changes
+
+- f6ddc92: Add `debug` logs to Hardhat Network initialization process.
+- f944cd5: Added an `enableRip7212` optional flag to the Hardhat Network config that enables [RIP-7212 (Precompile for secp256r1 Curve Support)](https://github.com/ethereum/RIPs/blob/master/RIPS/rip-7212.md).
+- 2609e90: Bump EDR to [v0.4.2](https://github.com/NomicFoundation/edr/releases/tag/%40nomicfoundation%2Fedr%400.4.2).
+- f944cd5: Bumped EDR to [v0.5.0](https://github.com/NomicFoundation/edr/releases/tag/%40nomicfoundation%2Fedr%400.5.0).
+- 6c943bb: Fix message for error HH206
+
 ## 2.22.6
 
 ### Patch Changes
