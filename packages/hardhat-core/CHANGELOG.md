@@ -1,5 +1,11 @@
 # hardhat
 
+## 2.22.19
+
+### Patch Changes
+
+- 5d79fca: Fix heuristic to detect that an ESM project doesn't have a Hardhat config with an explicit `.cjs` extension.
+
 ## 2.22.18
 
 ### Patch Changes
