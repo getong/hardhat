@@ -57,7 +57,7 @@ importers:
         specifier: workspace:^3.0.0
         version: link:../hardhat-errors
       '@nomicfoundation/hardhat-ethers':
-        specifier: workspace:^4.0.0
+        specifier: workspace:^4.0.2
         version: link:../hardhat-ethers
       '@nomicfoundation/hardhat-ethers-chai-matchers':
         specifier: workspace:^3.0.0
@@ -75,7 +75,7 @@ importers:
         specifier: workspace:^3.0.0
         version: link:../hardhat-mocha
       '@nomicfoundation/hardhat-network-helpers':
-        specifier: workspace:^3.0.0
+        specifier: workspace:^3.0.1
         version: link:../hardhat-network-helpers
       '@nomicfoundation/hardhat-node-test-runner':
         specifier: workspace:^3.0.0
@@ -84,7 +84,7 @@ importers:
         specifier: workspace:^3.0.0
         version: link:../hardhat-typechain
       '@nomicfoundation/hardhat-verify':
-        specifier: workspace:^3.0.0
+        specifier: workspace:^3.0.3
         version: link:../hardhat-verify
       '@nomicfoundation/hardhat-viem':
         specifier: workspace:^3.0.0
@@ -120,7 +120,7 @@ importers:
         specifier: foundry-rs/forge-std#v1.9.4
         version: https://codeload.github.com/foundry-rs/forge-std/tar.gz/1eea5bae12ae557d589f9f0f0edae2faa47cb262
       hardhat:
-        specifier: workspace:^3.0.6
+        specifier: workspace:^3.0.7
         version: link:../hardhat
       mocha:
         specifier: ^11.0.0
@@ -150,7 +150,7 @@ importers:
         specifier: workspace:^3.0.2
         version: link:../hardhat-errors
       '@nomicfoundation/hardhat-utils':
-        specifier: workspace:^3.0.2
+        specifier: workspace:^3.0.3
         version: link:../hardhat-utils
       '@nomicfoundation/hardhat-zod-utils':
         specifier: workspace:^3.0.1
@@ -281,7 +281,7 @@ importers:
         specifier: workspace:^3.0.2
         version: link:../hardhat-errors
       '@nomicfoundation/hardhat-utils':
-        specifier: workspace:^3.0.1
+        specifier: workspace:^3.0.3
         version: link:../hardhat-utils
       debug:
         specifier: ^4.3.2
@@ -293,7 +293,7 @@ importers:
         specifier: ^6.14.0
         version: 6.14.1
       hardhat:
-        specifier: workspace:^3.0.0
+        specifier: workspace:^3.0.7
         version: link:../hardhat
     devDependencies:
       '@nomicfoundation/hardhat-node-test-reporter':
@@ -940,10 +940,10 @@ importers:
         specifier: workspace:^3.0.0
         version: link:../hardhat-errors
       '@nomicfoundation/hardhat-utils':
-        specifier: workspace:^3.0.0
+        specifier: workspace:^3.0.3
         version: link:../hardhat-utils
       hardhat:
-        specifier: workspace:^3.0.0
+        specifier: workspace:^3.0.7
         version: link:../hardhat
     devDependencies:
       '@nomicfoundation/hardhat-node-test-reporter':
@@ -1386,7 +1386,7 @@ importers:
         specifier: workspace:^3.0.2
         version: link:../hardhat-errors
       '@nomicfoundation/hardhat-utils':
-        specifier: workspace:^3.0.1
+        specifier: workspace:^3.0.3
         version: link:../hardhat-utils
       '@nomicfoundation/hardhat-zod-utils':
         specifier: workspace:^3.0.0
@@ -1401,7 +1401,7 @@ importers:
         specifier: ^4.3.2
         version: 4.4.0(supports-color@5.5.0)
       hardhat:
-        specifier: workspace:^3.0.0
+        specifier: workspace:^3.0.7
         version: link:../hardhat
       semver:
         specifier: ^7.6.3
@@ -1594,13 +1594,13 @@ importers:
         specifier: workspace:^3.0.0
         version: link:../../../../hardhat-keystore
       '@nomicfoundation/hardhat-network-helpers':
-        specifier: workspace:^3.0.0
+        specifier: workspace:^3.0.1
         version: link:../../../../hardhat-network-helpers
       '@nomicfoundation/hardhat-node-test-runner':
         specifier: workspace:^3.0.0
         version: link:../../../../hardhat-node-test-runner
       '@nomicfoundation/hardhat-verify':
-        specifier: workspace:^3.0.0
+        specifier: workspace:^3.0.3
         version: link:../../../../hardhat-verify
       '@nomicfoundation/hardhat-viem':
         specifier: workspace:^3.0.0
@@ -1625,7 +1625,7 @@ importers:
         specifier: foundry-rs/forge-std#v1.9.4
         version: https://codeload.github.com/foundry-rs/forge-std/tar.gz/1eea5bae12ae557d589f9f0f0edae2faa47cb262
       hardhat:
-        specifier: workspace:^3.0.6
+        specifier: workspace:^3.0.7
         version: link:../../..
       typescript:
         specifier: ~5.8.0
@@ -1637,7 +1637,7 @@ importers:
   v-next/hardhat/templates/hardhat-3/02-mocha-ethers:
     dependencies:
       '@nomicfoundation/hardhat-ethers':
-        specifier: workspace:^4.0.0
+        specifier: workspace:^4.0.2
         version: link:../../../../hardhat-ethers
       '@nomicfoundation/hardhat-ethers-chai-matchers':
         specifier: workspace:^3.0.0
@@ -1652,13 +1652,13 @@ importers:
         specifier: workspace:^3.0.0
         version: link:../../../../hardhat-mocha
       '@nomicfoundation/hardhat-network-helpers':
-        specifier: workspace:^3.0.0
+        specifier: workspace:^3.0.1
         version: link:../../../../hardhat-network-helpers
       '@nomicfoundation/hardhat-typechain':
         specifier: workspace:^3.0.0
         version: link:../../../../hardhat-typechain
       '@nomicfoundation/hardhat-verify':
-        specifier: workspace:^3.0.0
+        specifier: workspace:^3.0.3
         version: link:../../../../hardhat-verify
       '@nomicfoundation/ignition-core':
         specifier: workspace:^3.0.0
@@ -1692,7 +1692,7 @@ importers:
         specifier: foundry-rs/forge-std#v1.9.4
         version: https://codeload.github.com/foundry-rs/forge-std/tar.gz/1eea5bae12ae557d589f9f0f0edae2faa47cb262
       hardhat:
-        specifier: workspace:^3.0.6
+        specifier: workspace:^3.0.7
         version: link:../../..
       mocha:
         specifier: ^11.0.0
@@ -2593,51 +2593,61 @@ packages:
     resolution: {integrity: sha512-UBXdQ4+ATARuFgsFrQ+tAsKvBi/Hly99aSVdeCUiHV9dRTTpMU7OrM3WXGys1l40wKVNiOl0QYY6cZQJ2xhKlQ==}
     cpu: [arm]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-arm-musleabihf@4.34.1':
     resolution: {integrity: sha512-m/yfZ25HGdcCSwmopEJm00GP7xAUyVcBPjttGLRAqZ60X/bB4Qn6gP7XTwCIU6bITeKmIhhwZ4AMh2XLro+4+w==}
     cpu: [arm]
     os: [linux]
+    libc: [musl]
 
   '@rollup/rollup-linux-arm64-gnu@4.34.1':
     resolution: {integrity: sha512-Wy+cUmFuvziNL9qWRRzboNprqSQ/n38orbjRvd6byYWridp5TJ3CD+0+HUsbcWVSNz9bxkDUkyASGP0zS7GAvg==}
     cpu: [arm64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-arm64-musl@4.34.1':
     resolution: {integrity: sha512-CQ3MAGgiFmQW5XJX5W3wnxOBxKwFlUAgSXFA2SwgVRjrIiVt5LHfcQLeNSHKq5OEZwv+VCBwlD1+YKCjDG8cpg==}
     cpu: [arm64]
     os: [linux]
+    libc: [musl]
 
   '@rollup/rollup-linux-loongarch64-gnu@4.34.1':
     resolution: {integrity: sha512-rSzb1TsY4lSwH811cYC3OC2O2mzNMhM13vcnA7/0T6Mtreqr3/qs6WMDriMRs8yvHDI54qxHgOk8EV5YRAHFbw==}
     cpu: [loong64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-powerpc64le-gnu@4.34.1':
     resolution: {integrity: sha512-fwr0n6NS0pG3QxxlqVYpfiY64Fd1Dqd8Cecje4ILAV01ROMp4aEdCj5ssHjRY3UwU7RJmeWd5fi89DBqMaTawg==}
     cpu: [ppc64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-riscv64-gnu@4.34.1':
     resolution: {integrity: sha512-4uJb9qz7+Z/yUp5RPxDGGGUcoh0PnKF33QyWgEZ3X/GocpWb6Mb+skDh59FEt5d8+Skxqs9mng6Swa6B2AmQZg==}
     cpu: [riscv64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-s390x-gnu@4.34.1':
     resolution: {integrity: sha512-QlIo8ndocWBEnfmkYqj8vVtIUpIqJjfqKggjy7IdUncnt8BGixte1wDON7NJEvLg3Kzvqxtbo8tk+U1acYEBlw==}
     cpu: [s390x]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-x64-gnu@4.34.1':
     resolution: {integrity: sha512-hzpleiKtq14GWjz3ahWvJXgU1DQC9DteiwcsY4HgqUJUGxZThlL66MotdUEK9zEo0PK/2ADeZGM9LIondE302A==}
     cpu: [x64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-x64-musl@4.34.1':
     resolution: {integrity: sha512-jqtKrO715hDlvUcEsPn55tZt2TEiBvBtCMkUuU0R6fO/WPT7lO9AONjPbd8II7/asSiNVQHCMn4OLGigSuxVQA==}
     cpu: [x64]
     os: [linux]
+    libc: [musl]
 
   '@rollup/rollup-win32-arm64-msvc@4.34.1':
     resolution: {integrity: sha512-RnHy7yFf2Wz8Jj1+h8klB93N0NHNHXFhNwAmiy9zJdpY7DE01VbEVtPdrK1kkILeIbHGRJjvfBDBhnxBr8kD4g==}
@@ -2967,41 +2977,49 @@ packages:
     resolution: {integrity: sha512-XRrVXRIUP++qyqAqgiXUpOv0GP3cHx7aA7NrzVFf6Cc8FoYuwtnmT+vctfSo4wRZN71MNU4xq2BEFxI4qvSerg==}
     cpu: [arm64]
     os: [linux]
+    libc: [glibc]
 
   '@unrs/resolver-binding-linux-arm64-musl@1.7.0':
     resolution: {integrity: sha512-Sligg+vTDAYTXkUtgviPjGEFIh57pkvlfdyRw21i9gkjp/eCNOAi2o5e7qLGTkoYdJHZJs5wVMViPEmAbw2/Tg==}
     cpu: [arm64]
     os: [linux]
+    libc: [musl]
 
   '@unrs/resolver-binding-linux-ppc64-gnu@1.7.0':
     resolution: {integrity: sha512-Apek8/x+7Rg33zUJlQV44Bvq8/t1brfulk0veNJrk9wprF89bCYFMUHF7zQYcpf2u+m1+qs3mYQrBd43fGXhMA==}
     cpu: [ppc64]
     os: [linux]
+    libc: [glibc]
 
   '@unrs/resolver-binding-linux-riscv64-gnu@1.7.0':
     resolution: {integrity: sha512-kBale8CFX5clfV9VmI9EwKw2ZACMEx1ecjV92F9SeWTUoxl9d+LGzS6zMSX3kGYqcfJB3NXMwLCTwIDBLG1y4g==}
     cpu: [riscv64]
     os: [linux]
+    libc: [glibc]
 
   '@unrs/resolver-binding-linux-riscv64-musl@1.7.0':
     resolution: {integrity: sha512-s/Q33xQjeFHSCvGl1sZztFZF6xhv7coMvFz6wa/x/ZlEArjiQoMMwGa/Aieq1Kp/6+S13iU3/IJF0ga6/451ow==}
     cpu: [riscv64]
     os: [linux]
+    libc: [musl]
 
   '@unrs/resolver-binding-linux-s390x-gnu@1.7.0':
     resolution: {integrity: sha512-7PuNXAo97ydaxVNrIYJzPipvINJafDpB8pt5CoZHfu8BmqcU6d7kl6/SABTnqNffNkd6Cfhuo70jvGB2P7oJ/Q==}
     cpu: [s390x]
     os: [linux]
+    libc: [glibc]
 
   '@unrs/resolver-binding-linux-x64-gnu@1.7.0':
     resolution: {integrity: sha512-fNosEzDMYItA4It+R0tioHwKlEfx/3TkkJdP2x9B5o9R946NDC4ZZj5ZjA+Y4NQD2V/imB3QPAKmeh3vHQGQyA==}
     cpu: [x64]
     os: [linux]
+    libc: [glibc]
 
   '@unrs/resolver-binding-linux-x64-musl@1.7.0':
     resolution: {integrity: sha512-gHIw42dmnVcw7osjNPRybaXhONhggWkkzqiOZzXco1q3OKkn4KsbDylATeemnq3TP+L1BrzSqzl0H9UTJ6ji+w==}
     cpu: [x64]
     os: [linux]
+    libc: [musl]
 
   '@unrs/resolver-binding-wasm32-wasi@1.7.0':
     resolution: {integrity: sha512-yq7POusv63/yTkNTaNsnXU/SAcBzckHyk1oYrDXqjS1m/goaWAaU9J9HrsovgTHkljxTcDd6PMAsJ5WZVBuGEQ==}
