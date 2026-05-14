@@ -1,5 +1,23 @@
 # hardhat
 
+## 3.4.6
+
+### Patch Changes
+
+- [#8264](https://github.com/NomicFoundation/hardhat/pull/8264) [`8452f97`](https://github.com/NomicFoundation/hardhat/commit/8452f9726205540e1684d3f8458bfd145e790226) Thanks [@alcuadrado](https://github.com/alcuadrado)! - Export `./package.json` so consumers can import the package's manifest.
+
+- [#8259](https://github.com/NomicFoundation/hardhat/pull/8259) [`1d1204f`](https://github.com/NomicFoundation/hardhat/commit/1d1204fe9baa8221d6c32025ffb2d51b67745b19) Thanks [@kanej](https://github.com/kanej)! - Fixed build overrides not being respected when running `compile`
+
+- [#8188](https://github.com/NomicFoundation/hardhat/pull/8188) [`d48bbfd`](https://github.com/NomicFoundation/hardhat/commit/d48bbfd86c22f5dfaaee7e926814ace0db20f320) Thanks [@alcuadrado](https://github.com/alcuadrado)! - Add `--init --template <template-name>` to initialize projects in a non-interactive way. Also add `--init --templates` to get the list of template names.
+
+- [#8266](https://github.com/NomicFoundation/hardhat/pull/8266) [`325bae1`](https://github.com/NomicFoundation/hardhat/commit/325bae178dd5278f995d591516e3937d5590de4d) Thanks [@schaable](https://github.com/schaable)! - Sanitized snapshot cheatcode group names to avoid issues when persisting them to disk. A warning is shown when a group is renamed suggesting the user to update their snapshot group names to match the on-disk names.
+
+- Updated dependencies:
+  - @nomicfoundation/hardhat-errors@3.0.13
+  - @nomicfoundation/hardhat-utils@4.1.2
+  - @nomicfoundation/hardhat-vendored@3.0.4
+  - @nomicfoundation/hardhat-zod-utils@3.0.5
+
 ## 3.4.5
 
 ### Patch Changes
